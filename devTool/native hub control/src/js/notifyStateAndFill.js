@@ -16,12 +16,12 @@ import globalData from './globalData'
 
 const notifyStateAndFill = {}
 notifyStateAndFill.start = function() {
-	globalData.stateSSE.status = 'toOpen'
-	if (globalData.stateSSE.es !== '') {
+	globalData.neverSave.stateSSE.status = 'toOpen'
+	if (globalData.neverSave.stateSSE.es !== '') {
 		return
 	}
 	const url = urlArr.getConnectState,
-		ajaxResult = api.getConnectState(url, globalData.stateSSE),
+		ajaxResult = api.getConnectState(url, globalData.neverSave.stateSSE),
 		$parent = $('#connectState ul')
 	let data = ''
 	ajaxResult.addEventListener('message', function(e) {
@@ -61,12 +61,12 @@ function stateNotifyHandle(data) {
 	}
 }
 notifyStateAndFill.stop = function() {
-	globalData.stateSSE.status = 'toClosed'
-	if (globalData.stateSSE.es) {
-		globalData.stateSSE.es.close()
+	globalData.neverSave.stateSSE.status = 'toClosed'
+	if (globalData.neverSave.stateSSE.es) {
+		globalData.neverSave.stateSSE.es.close()
 		console.log('has closed')
-		globalData.stateSSE.status = 'closed'
-		globalData.stateSSE.es = ''
+		globalData.neverSave.stateSSE.status = 'closed'
+		globalData.neverSave.stateSSE.es = ''
 	}
 }
 

@@ -6,22 +6,20 @@ import globalData from './src/js/globalData'
 import {
 	api
 } from './src/js/api'
-import {
-	showMethod
-} from './src/js/showmethod'
+
 import urlArr from './src/js/urlconfig'
 
 ;
-(function() {
-	console.log(globalData)
-	$('#hubIp').val(globalData.hubIp).triggerHandler('blur')
-	$('#hubMac').val(globalData.hubMac).triggerHandler('blur')
+(function () {
+	console.log(globalData.saved)
+	$('#hubIp').val(globalData.saved.hubIp).triggerHandler('blur')
+	$('#hubMac').val(globalData.saved.hubMac).triggerHandler('blur')
 }())
 
-layui.use(['layer', 'form'], function() {
+layui.use(['layer', 'form'], function () {
 	var layer = layui.layer,
 		form = layui.form()
-	$('#reboot').click(function() {
+	$('#reboot').click(function () {
 		console.log(urlArr.reboot)
 		api.reboot(urlArr.reboot).done(
 			layer.load(2, {
@@ -31,21 +29,21 @@ layui.use(['layer', 'form'], function() {
 
 
 	});
-	form.on('switch(switchScan)', function(data) {
+	form.on('switch(switchScan)', function (data) {
 		if (data.elem.checked) {
-			scan.start(urlArr.scan, {
-				chip: globalData.chip || 0
-			}, 5)
-			showMethod('scan')
-			data.elem.setAttribute('disabled', 'true')
+			console.log(globalData.saved)
+			scan.start({
+				chip: globalData.saved.chip || 0
+			}, globalData.neverSave.scanSSE.timeOut)
+				// data.elem.setAttribute('disabled', 'true')
 		} else {
-			scan.stop(0)
+			scan.stop()
 		}
 		// console.log(data.elem); //得到checkbox原始DOM对象
 		// console.log(data.elem.checked); //开关是否开启，true或者false
 	});
 
-	form.on('switch(switchNotifyState)', function(data) {
+	form.on('switch(switchNotifyState)', function (data) {
 		if (data.elem.checked) {
 			notifyStateAndFill.start()
 
@@ -57,7 +55,7 @@ layui.use(['layer', 'form'], function() {
 		// console.log(data.elem.checked); //开关是否开启，true或者false
 	});
 
-	form.on('switch(switchNotifyMsg)', function(data) {
+	form.on('switch(switchNotifyMsg)', function (data) {
 		if (data.elem.checked) {
 			notifyMsg.start()
 
@@ -69,7 +67,7 @@ layui.use(['layer', 'form'], function() {
 		// console.log(data.elem.checked); //开关是否开启，true或者false
 	});
 
-	$('#clearNotify').on('click', function() {
+	$('#clearNotify').on('click', function () {
 		$('.box .l4 ul').empty()
 	})
 
@@ -84,7 +82,7 @@ layui.use(['layer', 'form'], function() {
 
 });
 
-layui.use(['element'], function() {
+layui.use(['element'], function () {
 	let element = layui.element
 })
 

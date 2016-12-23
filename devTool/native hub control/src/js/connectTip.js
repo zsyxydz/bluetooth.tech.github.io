@@ -13,14 +13,14 @@ function htmlString() {
   <div class="layui-form-item">
     <label class="layui-form-label">chip:</label>
     <div class="layui-input-inline">
-      <input type="text" name="chip"  placeholder="0或者1" lay-verify='zeroOne'  value="${globalData.chip?globalData.chip:''}" class="layui-input">
+      <input type="text" name="chip"  placeholder="0或者1" lay-verify='zeroOne'  value="${globalData.saved.chip?globalData.saved.chip:''}" class="layui-input">
     </div>
      <div class="layui-form-mid layui-word-aux">(必填)</div>
   </div>
   <div class="layui-form-item">
     <label class="layui-form-label">deviceMac:</label>
     <div class="layui-input-inline">
-      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.deviceMac?globalData.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
+      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.saved.deviceMac?globalData.saved.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
     </div>
     <div class="layui-form-mid layui-word-aux">(必填)</div>
   </div>
@@ -61,8 +61,8 @@ function connectTips(layer, form, $dom) {
 
   function dos(layer, form) {
     form.on('submit(connect)', function(data) {
-      globalData.chip = data.field.chip
-      globalData.deviceMac = data.field.deviceMac
+      globalData.saved.chip = data.field.chip
+      globalData.saved.deviceMac = data.field.deviceMac
       globalData.type = data.field.type
       const deviceMac = data.field.deviceMac,
         type = data.field.type,

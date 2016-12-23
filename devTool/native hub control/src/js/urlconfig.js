@@ -30,7 +30,7 @@ updateUrlArr(data.hubIp)
 $hubIp.on('blur', function() {
     data.hubIp = this.value.trim()
     updateUrlArr(data.hubIp)
-    globalData.hubIp = data.hubIp
+    globalData.saved.hubIp = data.hubIp
 })
 $('#hubMac').on('blur', function() {
     globalData.hubMac = this.value.trim()

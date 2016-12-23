@@ -2,7 +2,7 @@ import globalData from './globalData'
 import notifyMsgAndFill from './notifyMsgAndFill'
 
 function htmlString() {
-	console.log(globalData.stateSSE.status)
+	console.log(globalData.neverSave.stateSSE.status)
 	let temp = `<form class="layui-form  notifyState-tip tip" action="#">
   <div class="layui-form-item">
     <label class="layui-form-label">Receive indication &amp; notification：GET/SSE</label>
@@ -13,7 +13,7 @@ function htmlString() {
   <div class="layui-form-item">
     <div class="layui-inline">
 		<label class="layui-form-label" style="width:auto">打开通知</label>
-		<input type="checkbox" lay-skin="switch" lay-filter="" title="打开通知" ${globalData.stateSSE.status.indexOf('pen')!== -1 ? 'checked' :''}>
+		<input type="checkbox" lay-skin="switch" lay-filter="" title="打开通知" ${globalData.neverSave.stateSSE.status.indexOf('pen')!== -1 ? 'checked' :''}>
 	</div>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
@@ -43,8 +43,8 @@ function notifyStateTip(layer, form, $dom) {
 		form.on('submit(bnotifyState)', function(data) {
 			if ($('form.notifyState-tip input[type="checkbox"]').prop('checked')) {
 
-				if (globalData.stateSSE.es === '' && globalData.stateSSE.status !== 'toOpen') {
-					globalData.stateSSE.status = 'toOpen'
+				if (globalData.neverSave.stateSSE.es === '' && globalData.neverSave.stateSSE.status !== 'toOpen') {
+					globalData.neverSave.stateSSE.status = 'toOpen'
 					$('.l3 .layui-form>.layui-form-item  input[type="checkbox"]').prop('checked', true)
 					form.render('checkbox')
 					data.elem.start && data.elem.start()

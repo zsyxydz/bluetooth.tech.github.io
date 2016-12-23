@@ -1,4 +1,5 @@
 import globalData from './globalData'
+import scan from './scan'
 
 function htmlString() {
   let temp = `<form class="layui-form  scan-tip tip" action="#">
@@ -11,7 +12,7 @@ function htmlString() {
   <div class="layui-form-item">
     <label class="layui-form-label">chip:</label>
     <div class="layui-input-inline">
-      <input type="text" name="chip"  value=${globalData.chip!=='' ? globalData.chip:'0'} placeholder="0或者1" lay-verify='zeroOrOne'  class="layui-input">
+      <input type="text" name="chip"  value=${globalData.saved.chip!=='' ? globalData.saved.chip:'0'} placeholder="0或者1" lay-verify='zeroOrOne'  class="layui-input">
     </div>
      <div class="layui-form-mid layui-word-aux">(选填)</div>
   </div>
@@ -40,7 +41,7 @@ function htmlString() {
 
 function scanTip(layer, form, $dom) {
   form.verify({
-    zeroOrOne: function(value) {
+    zeroOrOne: function (value) {
       // debugger
       if (!(value === '0' || value === '1' || value === '')) {
         return '必须是0或者1';
@@ -49,26 +50,20 @@ function scanTip(layer, form, $dom) {
   });
 
   function dos(layer, form) {
-    // debugger
-    form.on('submit(scan)', function(data) {
-      globalData.chip = data.field.chip
+
+    form.on('submit(scan)', function (data) {
+      // debugger
+      globalData.saved.chip = data.field.chip
+      $('#scanSwitch').prop('checked', true)
+      scan.start({
+        chip: globalData.saved.chip || 0
+      }, globalData.timeOut)
+      
+      form.render('checkbox')
       layer.closeAll('tips');
       return false
     });
   }
-  // layer.open({
-  //   type: 4,
-  //   area: ['300px','auto'],
-  //   // shade: 0,
-  //   closeBtn: 0,
-  //   shadeClose: true,
-  //   fixed: false,
-  //   maxmin: false,
-  //   anim: 5, //0-6的动画形式，-1不开启
-  //   tips: [2, '#2F4056'],
-  //   content: [htmlString(), $dom],
-  //   success: dos.bind(null,form, layer)
-  // });
   tip(layer, htmlString, $dom, dos, form)
 
 

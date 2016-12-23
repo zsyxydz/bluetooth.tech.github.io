@@ -22,12 +22,17 @@ function start(url, data, scanSSE, cb) {
     _url = addURLParam(url, _data, false)
     methodConfig.scan.url = _url
     let es = new EventSource(_url)
-    es.addEventListener("open", function() {
+    es.addEventListener("open", function () {
         // debugger
-        $('#scanSwitch').removeAttr('disabled')
-        scanSSE[0].es = es
+        if (scanSSE.status === 'toClosed') {
+            debugger
+            this.close()
+            scanSSE.es=''
+            return
+        }
+        scanSSE.es = this
     }, false);
-    es.addEventListener('message', function(e) {
+    es.addEventListener('message', function (e) {
         if (e.data !== ":keep-alive") {
             // let time = new Date()
             cb(e.data)
@@ -75,7 +80,7 @@ function getConnectState(url, stateSSE) {
     const es = new EventSource(url)
     methodConfig.getConnectState.url = url
         // debugger
-    es.addEventListener("open", function() {
+    es.addEventListener("open", function () {
         console.log('open')
         if (stateSSE.status === 'toClosed') {
             this.close()
@@ -111,9 +116,9 @@ function readByHandle(url, data) {
         url: _url,
         type: 'GET',
         data: data
-    }).done(function(e) {
+    }).done(function (e) {
         console.log(e)
-    }).fail(function(e) {
+    }).fail(function (e) {
         console.error(e)
 
     })
@@ -125,7 +130,7 @@ function receiveNotification(url, notifySSE) {
     // notifySSE.status = 'toOpen'
     console.log(notifySSE)
     methodConfig.notify.url = url
-    es.addEventListener("open", function() {
+    es.addEventListener("open", function () {
         if (notifySSE.status === 'toClosed') {
             this.close()
             notifySSE.status = 'closed'

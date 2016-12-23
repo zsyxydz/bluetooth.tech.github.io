@@ -43,8 +43,9 @@ function readStorage(key, expectationData) {
 		return expectationData
 	let storage = window.localStorage,
 		localData = JSON.parse(storage.getItem(key))
-
-	if (verifylocalStorageData(localData, expectationData, ['notifySSE', 'stateSSE']))
+	if(expectationData.fource)
+		return expectationData
+	if (verifylocalStorageData(localData, expectationData))
 		return localData
 	return expectationData
 

@@ -4,37 +4,46 @@ import {
 } from './localStorage'
 const localStorageKey = 'cassiaSDKTool',
 	handle = {
-		set: function(t, n, v) {
+		set: function (t, n, v) {
 			t[n] = v
 			storage(localStorageKey, t)
 			return true
 		},
-		get: function(t, n) {
+		get: function (t, n) {
 			return t[n]
 		}
 	}
 
 let firstFlag = true,
 	globalDataInit = {
-		deviceMac: '',
-		hubMac: '',
-		hubIp: '',
-		chip: '0',
-		commond: '',
-		notifySSE: {
-			status: 'closed',
-			es: ''
+		saved: {
+			deviceMac: '',
+			hubMac: '',
+			hubIp: '',
+			chip: '0',
+			commond: ''
 		},
-		stateSSE: {
-			status: 'closed',
-			es: ''
+		neverSave: {
+			notifySSE: {
+				status: 'closed',
+				es: ''
+			},
+			stateSSE: {
+				status: 'closed',
+				es: ''
+			},
+			scanSSE: {
+				status: 'closed',
+				es: '',
+				timeOut: 5
+			}
 		}
 	},
 	globalData
 
 if (firstFlag) {
 	firstFlag = false
-	globalDataInit = readStorage(localStorageKey, globalDataInit)
+	globalDataInit = readStorage(localStorageKey, globalDataInit.saved)
 }
 
 globalData = new Proxy(globalDataInit, handle)

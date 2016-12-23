@@ -15,7 +15,7 @@ function getAllServicesTip(layer, form, $dom) {
   <div class="layui-form-item">
     <label class="layui-form-label">deviceMac:</label>
     <div class="layui-input-inline">
-      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.deviceMac?globalData.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
+      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.saved.deviceMac?globalData.saved.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
     </div>
     <div class="layui-form-mid layui-word-aux">(必填)</div>
   </div>
@@ -48,8 +48,8 @@ function getAllServicesTip(layer, form, $dom) {
 		// debugger
 		$('form.getAllServices-tip button[lay-filter="bdiscoverSer"]')[0].fn = $dom.fn
 		form.on('submit(bdiscoverSer)', function(data) {
-			globalData.deviceMac = $('.getAllServices-tip input').val().trim()
-			data.elem.fn && data.elem.fn(globalData.deviceMac)
+			globalData.saved.deviceMac = $('.getAllServices-tip input').val().trim()
+			data.elem.fn && data.elem.fn(globalData.saved.deviceMac)
 			layer.closeAll('tips');
 			return false
 		});

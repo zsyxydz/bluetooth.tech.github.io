@@ -12,11 +12,11 @@ import globalData from './globalData'
 
 const notifyMsgAndFill = {}
 notifyMsgAndFill.start = function() {
-	globalData.notifySSE.status = 'toOpen'
-	if (globalData.notifySSE.es !== '') {
+	globalData.neverSave.notifySSE.status = 'toOpen'
+	if (globalData.neverSave.notifySSE.es !== '') {
 		return
 	}
-	const ajaxResult = api.receiveNotification(urlArr.notifyMsg,  globalData.notifySSE),
+	const ajaxResult = api.receiveNotification(urlArr.notifyMsg,  globalData.neverSave.notifySSE),
 		$parent1 = $('.l4 ul'),
 		$parent2 = $('#notify ul')
 	ajaxResult.addEventListener('message', function(e) {
@@ -43,11 +43,11 @@ notifyMsgAndFill.start = function() {
 notifyMsgAndFill.stop = function() {
 	// debugger
 	console.log(globalData)
-	globalData.notifySSE.status = 'toClosed'
-	if (globalData.notifySSE.es) {
-		globalData.notifySSE.es.close()
-		globalData.notifySSE.status = 'closed'
-		globalData.notifySSE.es = ''
+	globalData.neverSave.notifySSE.status = 'toClosed'
+	if (globalData.neverSave.notifySSE.es) {
+		globalData.neverSave.notifySSE.es.close()
+		globalData.neverSave.notifySSE.status = 'closed'
+		globalData.neverSave.notifySSE.es = ''
 	}
 }
 

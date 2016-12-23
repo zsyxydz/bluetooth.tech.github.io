@@ -13,7 +13,7 @@ function htmlString() {
   <div class="layui-form-item">
     <label class="layui-form-label" >deviceMac:</label>
     <div class="layui-input-inline">
-      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.deviceMac?globalData.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
+      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.saved.deviceMac?globalData.saved.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
     </div>
     <div class="layui-form-mid layui-word-aux">(必填)</div>
   </div>
@@ -21,7 +21,7 @@ function htmlString() {
     <label class="layui-form-label" style="width:auto">handle & value</label>
     <div class="layui-form-mid layui-word-aux">(必填)</div>
     <div class="">
-    <textarea placeholder="25:55AA101E\n27:55AA00FF"  class="layui-textarea" lay-verify="valueHandleArr">${globalData.commond?globalData.commond:''}</textarea>
+    <textarea placeholder="25:55AA101E\n27:55AA00FF"  class="layui-textarea" lay-verify="valueHandleArr">${globalData.saved.commond?globalData.saved.commond:''}</textarea>
     </div>
   </div>
 
@@ -100,10 +100,10 @@ function writeByHnadleTip(layer, form, $dom) {
   function dos(layer, form) {
     form.on('submit(write)', function(data) {
       const textareaValue = $('form.write-tip textarea').val()
-      globalData.commond = textareaValue
+      globalData.saved.commond = textareaValue
       const arr = textareaValue.split('\n').filter(item => item.trim()),
         deviceMac = $('form.write-tip input').val()
-      globalData.deviceMac = deviceMac
+      globalData.saved.deviceMac = deviceMac
       writeByHandleDeferAndFill(arr, deviceMac)
       layer.closeAll('tips');
       return false

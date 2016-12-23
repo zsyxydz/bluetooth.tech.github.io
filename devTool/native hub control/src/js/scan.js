@@ -3,9 +3,13 @@ import {
 } from './api'
 import {
     showLog
-} from './showlog.js';
-let scanSSE = [],
-    scan = {
+} from './showlog'
+import globalData from './globalData'
+import {
+    showMethod
+} from './showmethod'
+import urlArr from './urlconfig'
+const scan = {
         start: _scanHandle,
         stop: _stop,
     },
@@ -31,7 +35,7 @@ itemHandle.add = function (data) {
     } else {
         // debugger
         data.allItem[_data.mac] = createItem(_data)
-        data.parentNode.append(data.allItem[_data.mac].li)
+        data.parentNode.appendChild(data.allItem[_data.mac].li)
         data.allItem[_data.mac].rssi.style.color = 'red'
     }
     data.allItem[_data.mac].mesg = data.mesg
@@ -105,53 +109,57 @@ itemHandle.add = function (data) {
 
 }
 itemHandle.destroy = function (data) {
-    // debugger
     data.el.removeChild(data.allItem[data.mac].li)
     delete data.allItem[data.mac]
 }
 
-function _scanHandle(url, data, timeout) {
+function _scanHandle(data, timeout) {
+    if (globalData.neverSave.scanSSE.es!=='')
+        return
+    globalData.neverSave.scanSSE.status='toOpen'
     let deviceData = {},
         _allItem = {},
-        parentNode = document.querySelector('.l2 ul.bb1')
-    parentNode.innerHTML=''
-        // debugger
-    scanSSE[0] = {
-        es: null,
-        timer: null
-    }
-    api.start(url, data, scanSSE, cb)
+        parentNode = document.querySelector('.l2 ul.bb1'),
+        url = urlArr.scan
+    parentNode.innerHTML = ''
+    globalData.neverSave.scanSSE.timer = null
+    globalData.neverSave.scanSSE.es = null
+    api.start(url, data, globalData.neverSave.scanSSE, cb.bind(null,timeout))
+    showMethod('scan')
 
-
-    scanSSE[0].timer = setInterval(function () {
+    globalData.neverSave.scanSSE.timer = setInterval(function () {
         checkDeviceTimeout(_allItem)
     }, 1000)
 
     function checkDeviceTimeout(obj) {
-        if (scanSSE.length === 0) {
+        if (globalData.neverSave.scanSSE.status === 'toClosed') {
             return
         }
         // console.log('old', obj)
         for (var index in obj) {
             if (obj[index].flag > 0) {
                 obj[index].flag--
+                console.log(obj[index])
             } else {
                 // debugger
                 // !!!!!!!!!!console.log('delete', index)
                 itemHandle.destroy({
-                    el: parentNode,
-                    mac: index,
-                    allItem: _allItem
-                })
-                // !!!!!console.log('new', obj)
+                        el: parentNode,
+                        mac: index,
+                        allItem: _allItem
+                    })
+                    // !!!!!console.log('new', obj)
             }
         }
     }
 
-    function cb(item) {
+    function cb(timeout,item) {
+        // debugger
         let temp = JSON.parse(item),
             mac = temp.bdaddrs[0].bdaddr
-        showLog($log, {message:item})
+        showLog($log, {
+            message: item
+        })
         itemHandle.add({
             parentNode: parentNode,
             mesg: JSON.parse(item),
@@ -162,12 +170,12 @@ function _scanHandle(url, data, timeout) {
     }
 }
 
-function _stop(id) {
+function _stop() {
     // debugger
-    var _id = Number(id)
-    Number.isInteger(_id) && scanSSE[_id].es && scanSSE[_id].es.close()
-    clearInterval(scanSSE[0].timer)
-    scanSSE.splice(_id, 1)
+    globalData.neverSave.scanSSE.status = 'toClosed'
+    globalData.neverSave.scanSSE.es && globalData.neverSave.scanSSE.es.close()
+    clearInterval(globalData.neverSave.scanSSE.timer)
+    globalData.neverSave.scanSSE.es=''
 }
 
 
