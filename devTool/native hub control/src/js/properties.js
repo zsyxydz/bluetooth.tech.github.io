@@ -1,6 +1,5 @@
 const checkProp = (value) => {
-	const _value = Number(value),
-		msg = [],
+	const msg = [],
 		msgBox = {
 			0X01: 'broadcasts',
 			0X02: 'read',

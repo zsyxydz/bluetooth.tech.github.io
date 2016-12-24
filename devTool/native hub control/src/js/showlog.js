@@ -4,8 +4,9 @@ function showLog(parent, data) {
 		before: '',
 		message: '',
 		after: '',
-		class:''
-	},data)
+		class: ''
+	}, data)
+
 	let temp = `<li><pre class='${_data.class}'>${_data.before}${_data.message}${_data.after}</pre></li>`
 	// setTimeout(function() {
 	// 	parent.append(temp)

@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
+
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" href="src/lib/layui/css/layui.css">
-	<link rel="stylesheet" href="src/css/index.css">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<!-- <script src="dist/common.js"></script>
-	<script src="dist/vendor.js"></script> -->
-	<!-- <script src='./src/lib/jquery.min.js'></script> -->
+	<link rel="stylesheet" href="./dist/lib/layui/css/layui.css">
+	<link rel="stylesheet" href="./dist/css/index.css">
+	<script src='./dist/lib/jquery.min.js'></script>
 </head>
 
 <body>
 	<fieldset class="layui-elem-field layui-field-title">
 		<legend>本地管理Hub</legend>
 	</fieldset>
-	<div   class="top layui-form">
+	<div class="top layui-form">
 		<div class="layui-inline">
 			<label class="layui-form-label">Hub Mac</label>
 			<div class="layui-input-inline">
-				<input type="text" name="number" id="hubMac"  lay-verify="deviceMac" class="layui-input" >
+				<input type="text" name="number" id="hubMac" lay-verify="deviceMac" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<label class="layui-form-label">Hub Ip</label>
 			<div class="layui-input-inline">
-				<input type="text" name="title"  lay-verify="hubIp" id="hubIp" placeholder="" class="layui-input">
+				<input type="text" name="title" lay-verify="hubIp" id="hubIp" placeholder="" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-inline">
 			<button class="layui-btn layui-btn-primary" id="reboot">reboot</button>
-			<button lay-filter='submit' id='verify' class="layui-hide" lay-submit >submit</button>
+			<button lay-filter='submit' id='verify' class="layui-hide" lay-submit>submit</button>
 		</div>
 	</div>
 	<div class="box">
@@ -53,7 +52,7 @@
 				<div class="layui-form-item">
 					<label class="layui-form-label" style="width:auto">开始扫描</label>
 					<div class="layui-input-inline">
-						<input type="checkbox" id="scanSwitch" lay-skin="switch" lay-filter="switchScan"  title="开始扫描" >
+						<input type="checkbox" id="scanSwitch" lay-skin="switch" lay-filter="switchScan" title="开始扫描">
 					</div>
 				</div>
 				<ul class="bb1">
@@ -70,7 +69,7 @@
 					</div>
 					<div class="layui-inline">
 						<label class="layui-form-label" style="width:auto">连接状态变化通知</label>
-						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyState" title="连接状态变化通知" >
+						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyState" title="连接状态变化通知">
 					</div>
 				</div>
 
@@ -138,22 +137,22 @@
 				<div class="layui-form-item">
 					<div class="layui-inline">
 						<label class="layui-form-label" style="width:auto">打开Hub通知</label>
-						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg" title="打开通知" >
+						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg" title="打开通知">
 					</div>
 					<div class="layui-inline">
 						<label>清空此列表</label>
 						<button class="layui-btn" id="clearNotify"><i class="layui-icon">&#xe640;</i></button>
 					</div>
 				</div>
-					<ul >
-					</ul>
-				</div>
+				<ul>
+				</ul>
 			</div>
 		</div>
-		<div class="log">
-			<div class="left">
-				<h3 class="leader">API接口</h3>
-				<ul class="order">
+	</div>
+	<div class="log">
+		<div class="left">
+			<h3 class="leader">API接口</h3>
+			<ul class="order">
 				<!--<li>
 					<p><span>方法名</span><span>扫描设备</span><span>GET</span></p>
 					<p><em>URL:</em>http://192.168.1.100/gap/nodes/?event=1</p>
@@ -171,7 +170,7 @@
 			</ul>
 		</div>
 		<div class="right">
-			<div class="layui-tab layui-tab-card">
+			<div class="layui-tab layui-tab-card" lay-filter="log">
 				<ul class="layui-tab-title">
 					<li class="layui-this">扫描结果</li>
 					<li>连接设备</li>
@@ -183,20 +182,36 @@
 					<li>断开连接</li>
 				</ul>
 				<div class="layui-tab-content">
-					<div class="layui-tab-item scan layui-show"><ul></ul></div>
-					<div class="layui-tab-item" id="connect"><ul></ul></div>
-					<div class="layui-tab-item" id="connectLists"><ul></ul></div>
-					<div class="layui-tab-item" id="getAllServices"><ul></ul></div>
-					<div class="layui-tab-item" id="notify"><ul></ul></div>
-					<div class="layui-tab-item" id="connectState"><ul></ul></div>
-					<div class="layui-tab-item" id="writeValueLog"><ul></ul></div>
-					<div class="layui-tab-item" id="disconnectLog"><ul></ul></div>
+					<div class="layui-tab-item scan layui-show">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="connect">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="connectLists">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="getAllServices">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="notify">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="connectState">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="writeValueLog">
+						<ul></ul>
+					</div>
+					<div class="layui-tab-item" id="disconnectLog">
+						<ul></ul>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </body>
-<script src="src/lib/layui/layui.js"></script>
-<script src="dist/index.js"></script>
+<script src="./dist/lib/layui/layui.js"></script>
+<script src="./dist/js/index.js"></script>
 
 </html>

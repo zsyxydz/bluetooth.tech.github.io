@@ -43,11 +43,10 @@ function readStorage(key, expectationData) {
 		return expectationData
 	let storage = window.localStorage,
 		localData = JSON.parse(storage.getItem(key))
-	if(expectationData.fource)
-		return expectationData
-	if (verifylocalStorageData(localData, expectationData))
-		return localData
-	return expectationData
+	// if (verifylocalStorageData(localData, expectationData))
+	// 	return localData
+
+	return Object.assign(expectationData,localData)
 
 }
 

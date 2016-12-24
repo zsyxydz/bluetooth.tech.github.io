@@ -1,3 +1,4 @@
+import './src/css/index.css'
 import * as handle from './src/js/mainHandle'
 import scan from './src/js/scan'
 import notifyStateAndFill from './src/js/notifyStateAndFill'
@@ -11,7 +12,6 @@ import urlArr from './src/js/urlconfig'
 
 ;
 (function () {
-	console.log(globalData.saved)
 	$('#hubIp').val(globalData.saved.hubIp).triggerHandler('blur')
 	$('#hubMac').val(globalData.saved.hubMac).triggerHandler('blur')
 }())
@@ -83,7 +83,8 @@ layui.use(['layer', 'form'], function () {
 });
 
 layui.use(['element'], function () {
-	let element = layui.element
+	let element = layui.element();
+	element.tabChange('log', 1);
 })
 
 

@@ -10,9 +10,9 @@ import {
 } from './showmethod'
 import urlArr from './urlconfig'
 const scan = {
-        start: _scanHandle,
-        stop: _stop,
-    },
+    start: scanHandle,
+    stop,
+},
     itemHandle = {},
     $log = $('.log .right .scan ul')
 itemHandle.add = function (data) {
@@ -113,18 +113,17 @@ itemHandle.destroy = function (data) {
     delete data.allItem[data.mac]
 }
 
-function _scanHandle(data, timeout) {
-    if (globalData.neverSave.scanSSE.es!=='')
+function scanHandle(data, timeout) {
+    if (globalData.neverSave.scanSSE.es !== '')
         return
-    globalData.neverSave.scanSSE.status='toOpen'
-    let deviceData = {},
-        _allItem = {},
+    globalData.neverSave.scanSSE.status = 'toOpen'
+    let _allItem = {},
         parentNode = document.querySelector('.l2 ul.bb1'),
         url = urlArr.scan
     parentNode.innerHTML = ''
     globalData.neverSave.scanSSE.timer = null
     globalData.neverSave.scanSSE.es = null
-    api.start(url, data, globalData.neverSave.scanSSE, cb.bind(null,timeout))
+    api.start(url, data, globalData.neverSave.scanSSE, cb.bind(null, timeout))
     showMethod('scan')
 
     globalData.neverSave.scanSSE.timer = setInterval(function () {
@@ -144,19 +143,18 @@ function _scanHandle(data, timeout) {
                 // debugger
                 // !!!!!!!!!!console.log('delete', index)
                 itemHandle.destroy({
-                        el: parentNode,
-                        mac: index,
-                        allItem: _allItem
-                    })
-                    // !!!!!console.log('new', obj)
+                    el: parentNode,
+                    mac: index,
+                    allItem: _allItem
+                })
+                // !!!!!console.log('new', obj)
             }
         }
     }
 
-    function cb(timeout,item) {
+    function cb(timeout, item) {
         // debugger
-        let temp = JSON.parse(item),
-            mac = temp.bdaddrs[0].bdaddr
+        // mac = temp.bdaddrs[0].bdaddr
         showLog($log, {
             message: item
         })
@@ -170,12 +168,12 @@ function _scanHandle(data, timeout) {
     }
 }
 
-function _stop() {
+function stop() {
     // debugger
     globalData.neverSave.scanSSE.status = 'toClosed'
     globalData.neverSave.scanSSE.es && globalData.neverSave.scanSSE.es.close()
     clearInterval(globalData.neverSave.scanSSE.timer)
-    globalData.neverSave.scanSSE.es=''
+    globalData.neverSave.scanSSE.es = ''
 }
 
 

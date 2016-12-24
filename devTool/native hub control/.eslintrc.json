@@ -8,6 +8,7 @@
 	"parserOptions": {
 		"sourceType": "module"
 	},
+	"parser": "babel-eslint",
 	"rules": {
 		"no-cond-assign": [2, "always"], //if, while等条件中不允许使用“=”
 		"no-constant-condition": 2,

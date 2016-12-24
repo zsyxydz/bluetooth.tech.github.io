@@ -33,7 +33,7 @@ $hubIp.on('blur', function() {
     globalData.saved.hubIp = data.hubIp
 })
 $('#hubMac').on('blur', function() {
-    globalData.hubMac = this.value.trim()
+    globalData.saved.hubMac = this.value.trim()
 })
 
 export default urlArr
