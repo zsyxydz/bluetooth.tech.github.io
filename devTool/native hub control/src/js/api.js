@@ -15,19 +15,38 @@ function addURLParam(url, data, flag = true) {
 function start(url, data, scanSSE, cb) {
     // debugger
     let _data = Object.assign({
-            event: 1,
-            chip: 0
-        }, data),
-        _url;
-    _url = addURLParam(url, _data, false)
+        event: 1,
+        chip: 0
+    }, data),
+        _url = addURLParam(url, _data, false),
+        virtualData = ''
     methodConfig.scan.url = _url
     let es = new EventSource(_url)
+
+    function test(addFrequency, creatFrequency) {
+        let n = 0,count=0, temp = addFrequency / creatFrequency
+        setInterval(function () {
+            count++
+            console.time(count)
+            virtualData += '<li>第' + count + '条数据：abdefghiklddfefefdfefefsfefe</li>'
+            n++
+            if (temp <= n) {
+                $('#scanLog ul').append(virtualData)
+                virtualData = ''
+                n = 0
+            }
+            console.timeEnd(count)
+        }, creatFrequency)
+
+    }
+
+    // test(3000, 50)
+
     es.addEventListener("open", function () {
         // debugger
         if (scanSSE.status === 'toClosed') {
-            debugger
             this.close()
-            scanSSE.es=''
+            scanSSE.es = ''
             return
         }
         scanSSE.es = this
@@ -36,7 +55,7 @@ function start(url, data, scanSSE, cb) {
         if (e.data !== ":keep-alive") {
             // let time = new Date()
             cb(e.data)
-                // console.warn("time%s,data%s", new Date - time, e.data)
+            // console.warn("time%s,data%s", new Date - time, e.data)
         }
     })
 }
@@ -47,7 +66,7 @@ function connectDevice(url, data) {
     let _url = url
     if (data.qs.chip !== null)
         _url = addURLParam(url, data.qs, false)
-        // debugger
+    // debugger
     methodConfig.connectDevice.url = _url
     return $.ajax({
         url: _url,
@@ -79,7 +98,7 @@ function getConnectList(url) {
 function getConnectState(url, stateSSE) {
     const es = new EventSource(url)
     methodConfig.getConnectState.url = url
-        // debugger
+    // debugger
     es.addEventListener("open", function () {
         console.log('open')
         if (stateSSE.status === 'toClosed') {

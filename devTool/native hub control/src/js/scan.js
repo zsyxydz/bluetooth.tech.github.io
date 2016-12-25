@@ -14,7 +14,7 @@ const scan = {
     stop,
 },
     itemHandle = {},
-    $log = $('.log .right .scan ul')
+    $log = $('#scanLog ul')
 itemHandle.add = function (data) {
     // debugger
     let _data = {
