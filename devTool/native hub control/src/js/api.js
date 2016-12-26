@@ -1,6 +1,7 @@
 import {
     methodConfig
 } from './showmethod'
+import globalData from './globalData'
 
 function addURLParam(url, data, flag = true) {
     for (var key in data) {
@@ -41,7 +42,7 @@ function start(url, data, scanSSE, cb) {
 
     }
 
-    // test(3000, 50)
+    // test(1000, 1)
 
     es.addEventListener("open", function() {
         // debugger
@@ -54,14 +55,41 @@ function start(url, data, scanSSE, cb) {
     }, false);
     es.addEventListener('message', function(e) {
         if (e.data !== ":keep-alive") {
-            // let time = new Date()
-            cb(e.data)
+            globalData.neverSave.scanData.push('<li>' + e.data + '</li>')
+                // console.log(new Date(), globalData.neverSave.scanData.length)
+                // let time = new Date()
+                // cb(e.data)
                 // console.warn("time%s,data%s", new Date - time, e.data)
         }
     })
+
+    layui.use('flow', function() {
+        var flow = layui.flow,
+            num = 5;
+        flow.load({
+            elem: '#scanLog ul',
+            isAuto:false,
+            done: function(page, next) {
+                var lis = globalData.neverSave.scanData,
+                    n = next
+                if (page === 1) {
+                    // debugger
+                    setTimeout(() => {
+                        console.log(lis.length)
+                        n(lis.slice(page * num, page * num+5).join(''), page * num < lis.length)
+                         page++
+                    }, 1000)
+                } else {
+                    // debugger
+                    n(lis.slice(page * num, page * num+5).join(''), page * num < lis.length)
+                     page++
+                }
+               
+            }
+        })
+    })
+
 }
-
-
 
 function connectDevice(url, data) {
     let _url = url

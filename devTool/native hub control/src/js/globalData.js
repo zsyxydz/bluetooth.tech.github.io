@@ -3,9 +3,10 @@ import {
 	readStorage
 } from './localStorage'
 
-let firstFlag = true, saved
+let firstFlag = true,
+	saved
 const localStorageKey = 'cassiaSDKTool',
-	 neverSave = {
+	neverSave = {
 		notifySSE: {
 			status: 'closed',
 			es: ''
@@ -18,8 +19,10 @@ const localStorageKey = 'cassiaSDKTool',
 			status: 'closed',
 			es: '',
 			timeOut: 5
-		}
-	}, savedInit = {
+		},
+		scanData: []
+	},
+	savedInit = {
 		_deviceMac: '',
 		_hubMac: '',
 		_hubIp: '',
