@@ -10,12 +10,12 @@ import {
 } from './showmethod'
 import urlArr from './urlconfig'
 const scan = {
-    start: scanHandle,
-    stop,
-},
+        start: scanHandle,
+        stop
+    },
     itemHandle = {},
     $log = $('#scanLog ul')
-itemHandle.add = function (data) {
+itemHandle.add = function(data) {
     // debugger
     let _data = {
         mac: data.mesg.bdaddrs[0].bdaddr,
@@ -28,8 +28,18 @@ itemHandle.add = function (data) {
         // debugger
         if (_data.name !== "(unknown)")
             data.allItem[_data.mac].name.innerHTML = _data.name
-        data.allItem[_data.mac].type.innerHTML = _data.type
-        data.allItem[_data.mac].rssi.innerHTML = _data.rssi
+            // data.allItem[_data.mac].type.innerHTML = _data.type
+            // 
+            // 每一秒更新一次rssi
+            // 
+        if (data.allItem[_data.mac].lastUpdate !== data.allItem[_data.mac].flag) {
+            if (data.allItem[_data.mac].rssi.innerHTML !== _data.rssi) {
+                data.allItem[_data.mac].rssi.innerHTML = _data.rssi
+                data.allItem[_data.mac].lastUpdate = data.allItem[_data.mac].flag
+            }
+        }
+
+
 
         data.allItem[_data.mac].rssi.style.color = '#5FB878'
     } else {
@@ -40,6 +50,8 @@ itemHandle.add = function (data) {
     }
     data.allItem[_data.mac].mesg = data.mesg
     data.allItem[_data.mac].flag = data.flag
+    data.allItem[_data.mac].lastUpdate = data.flag
+
 
     function createItem(data) {
 
@@ -108,7 +120,7 @@ itemHandle.add = function (data) {
     }
 
 }
-itemHandle.destroy = function (data) {
+itemHandle.destroy = function(data) {
     data.el.removeChild(data.allItem[data.mac].li)
     delete data.allItem[data.mac]
 }
@@ -126,7 +138,7 @@ function scanHandle(data, timeout) {
     api.start(url, data, globalData.neverSave.scanSSE, cb.bind(null, timeout))
     showMethod('scan')
 
-    globalData.neverSave.scanSSE.timer = setInterval(function () {
+    globalData.neverSave.scanSSE.timer = setInterval(function() {
         checkDeviceTimeout(_allItem)
     }, 1000)
 
@@ -138,16 +150,16 @@ function scanHandle(data, timeout) {
         for (var index in obj) {
             if (obj[index].flag > 0) {
                 obj[index].flag--
-                console.log(obj[index])
+                    // console.log(obj[index])
             } else {
                 // debugger
                 // !!!!!!!!!!console.log('delete', index)
                 itemHandle.destroy({
-                    el: parentNode,
-                    mac: index,
-                    allItem: _allItem
-                })
-                // !!!!!console.log('new', obj)
+                        el: parentNode,
+                        mac: index,
+                        allItem: _allItem
+                    })
+                    // !!!!!console.log('new', obj)
             }
         }
     }

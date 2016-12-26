@@ -26,7 +26,7 @@ notifyStateAndFill.start = function() {
 	let data = ''
 	ajaxResult.addEventListener('message', function(e) {
 		// debugger
-		console.log('connectState:', e)
+		// console.log('connectState:', e)
 		showLog($parent, {
 			message: e.data
 		})
@@ -52,9 +52,8 @@ function stateNotifyHandle(data) {
 		// debugger
 		$l3.append(htmlTemp(mac, ''))
 	} else if (state === 'disconnected') {
-		// debugger
 		$li[0] && $li.slideUp('normal', function() {
-			this.remove()
+			this.parentNode.removeChild(this)
 		});
 
 		// debugger

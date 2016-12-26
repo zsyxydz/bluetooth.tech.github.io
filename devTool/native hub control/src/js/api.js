@@ -1,4 +1,3 @@
-import $ from 'jquery'
 import {
     methodConfig
 } from './showmethod'
@@ -15,17 +14,19 @@ function addURLParam(url, data, flag = true) {
 function start(url, data, scanSSE, cb) {
     // debugger
     let _data = Object.assign({
-        event: 1,
-        chip: 0
-    }, data),
+            event: 1,
+            chip: 0
+        }, data),
         _url = addURLParam(url, _data, false),
         virtualData = ''
     methodConfig.scan.url = _url
     let es = new EventSource(_url)
 
     function test(addFrequency, creatFrequency) {
-        let n = 0,count=0, temp = addFrequency / creatFrequency
-        setInterval(function () {
+        let n = 0,
+            count = 0,
+            temp = addFrequency / creatFrequency
+        setInterval(function() {
             count++
             console.time(count)
             virtualData += '<li>第' + count + '条数据：abdefghiklddfefefdfefefsfefe</li>'
@@ -42,7 +43,7 @@ function start(url, data, scanSSE, cb) {
 
     // test(3000, 50)
 
-    es.addEventListener("open", function () {
+    es.addEventListener("open", function() {
         // debugger
         if (scanSSE.status === 'toClosed') {
             this.close()
@@ -51,11 +52,11 @@ function start(url, data, scanSSE, cb) {
         }
         scanSSE.es = this
     }, false);
-    es.addEventListener('message', function (e) {
+    es.addEventListener('message', function(e) {
         if (e.data !== ":keep-alive") {
             // let time = new Date()
             cb(e.data)
-            // console.warn("time%s,data%s", new Date - time, e.data)
+                // console.warn("time%s,data%s", new Date - time, e.data)
         }
     })
 }
@@ -66,7 +67,7 @@ function connectDevice(url, data) {
     let _url = url
     if (data.qs.chip !== null)
         _url = addURLParam(url, data.qs, false)
-    // debugger
+        // debugger
     methodConfig.connectDevice.url = _url
     return $.ajax({
         url: _url,
@@ -98,8 +99,8 @@ function getConnectList(url) {
 function getConnectState(url, stateSSE) {
     const es = new EventSource(url)
     methodConfig.getConnectState.url = url
-    // debugger
-    es.addEventListener("open", function () {
+        // debugger
+    es.addEventListener("open", function() {
         console.log('open')
         if (stateSSE.status === 'toClosed') {
             this.close()
@@ -135,9 +136,9 @@ function readByHandle(url, data) {
         url: _url,
         type: 'GET',
         data: data
-    }).done(function (e) {
+    }).done(function(e) {
         console.log(e)
-    }).fail(function (e) {
+    }).fail(function(e) {
         console.error(e)
 
     })
@@ -149,7 +150,7 @@ function receiveNotification(url, notifySSE) {
     // notifySSE.status = 'toOpen'
     console.log(notifySSE)
     methodConfig.notify.url = url
-    es.addEventListener("open", function () {
+    es.addEventListener("open", function() {
         if (notifySSE.status === 'toClosed') {
             this.close()
             notifySSE.status = 'closed'
