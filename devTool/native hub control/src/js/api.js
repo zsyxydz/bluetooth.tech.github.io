@@ -58,33 +58,34 @@ function start(url, data, scanSSE, cb) {
             globalData.neverSave.scanData.push('<li>' + e.data + '</li>')
                 // console.log(new Date(), globalData.neverSave.scanData.length)
                 // let time = new Date()
-                // cb(e.data)
+                cb(e.data)
                 // console.warn("time%s,data%s", new Date - time, e.data)
         }
     })
+
 
     layui.use('flow', function() {
         var flow = layui.flow,
             num = 5;
         flow.load({
             elem: '#scanLog ul',
-            isAuto:false,
+            scrollElem: '#scanLog ul',
+            mb:10,
             done: function(page, next) {
-                var lis = globalData.neverSave.scanData,
-                    n = next
+                var lis = globalData.neverSave.scanData
                 if (page === 1) {
                     // debugger
+                    console.log(lis.length)
                     setTimeout(() => {
-                        console.log(lis.length)
-                        n(lis.slice(page * num, page * num+5).join(''), page * num < lis.length)
-                         page++
+                        next(lis.slice(0, num).join(''), num < lis.length)
+                        page++
                     }, 1000)
                 } else {
                     // debugger
-                    n(lis.slice(page * num, page * num+5).join(''), page * num < lis.length)
-                     page++
+                    next(lis.slice((page - 1) * num, page * num).join(''), page * num <= lis.length)
+                    page++
                 }
-               
+
             }
         })
     })

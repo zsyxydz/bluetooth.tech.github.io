@@ -167,9 +167,9 @@ function scanHandle(data, timeout) {
     function cb(timeout, item) {
         // debugger
         // mac = temp.bdaddrs[0].bdaddr
-        showLog($log, {
-            message: item
-        })
+        // showLog($log, {
+        //     message: item
+        // })
         itemHandle.add({
             parentNode: parentNode,
             mesg: JSON.parse(item),
