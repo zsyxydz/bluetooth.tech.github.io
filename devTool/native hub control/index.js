@@ -84,7 +84,7 @@ layui.use(['layer', 'form'], function () {
 
 layui.use(['element'], function () {
 	let element = layui.element();
-	element.tabChange('log', 1);
+	// element.tabChange('log', 1);
 })
 
 

@@ -58,7 +58,7 @@ function start(url, data, scanSSE, cb) {
             globalData.neverSave.scanData.push('<li>' + e.data + '</li>')
                 // console.log(new Date(), globalData.neverSave.scanData.length)
                 // let time = new Date()
-                cb(e.data)
+            cb(e.data)
                 // console.warn("time%s,data%s", new Date - time, e.data)
         }
     })
@@ -66,26 +66,23 @@ function start(url, data, scanSSE, cb) {
 
     layui.use('flow', function() {
         var flow = layui.flow,
-            num = 5;
+            num = 10;
         flow.load({
             elem: '#scanLog ul',
-            scrollElem: '#scanLog ul',
-            mb:10,
+            scrollElem: '.layui-tab-content',
+            mb:100,
             done: function(page, next) {
                 var lis = globalData.neverSave.scanData
                 if (page === 1) {
-                    // debugger
-                    console.log(lis.length)
                     setTimeout(() => {
                         next(lis.slice(0, num).join(''), num < lis.length)
                         page++
                     }, 1000)
                 } else {
-                    // debugger
                     next(lis.slice((page - 1) * num, page * num).join(''), page * num <= lis.length)
                     page++
                 }
-
+                console.log(lis)
             }
         })
     })
