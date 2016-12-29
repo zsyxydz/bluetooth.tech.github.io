@@ -23,27 +23,6 @@ function start(url, data, scanSSE, cb) {
     methodConfig.scan.url = _url
     let es = new EventSource(_url)
 
-    function test(addFrequency, creatFrequency) {
-        let n = 0,
-            count = 0,
-            temp = addFrequency / creatFrequency
-        setInterval(function() {
-            count++
-            console.time(count)
-            virtualData += '<li>第' + count + '条数据：abdefghiklddfefefdfefefsfefe</li>'
-            n++
-            if (temp <= n) {
-                $('#scanLog ul').append(virtualData)
-                virtualData = ''
-                n = 0
-            }
-            console.timeEnd(count)
-        }, creatFrequency)
-
-    }
-
-    // test(1000, 1)
-
     es.addEventListener("open", function() {
         // debugger
         if (scanSSE.status === 'toClosed') {
@@ -55,7 +34,7 @@ function start(url, data, scanSSE, cb) {
     }, false);
     es.addEventListener('message', function(e) {
         if (e.data !== ":keep-alive") {
-            globalData.neverSave.scanData.push('<li>' + e.data + '</li>')
+            globalData.neverSave.scanData.push( e.data )
                 // console.log(new Date(), globalData.neverSave.scanData.length)
                 // let time = new Date()
             cb(e.data)
@@ -64,28 +43,28 @@ function start(url, data, scanSSE, cb) {
     })
 
 
-    layui.use('flow', function() {
-        var flow = layui.flow,
-            num = 10;
-        flow.load({
-            elem: '#scanLog ul',
-            scrollElem: '.layui-tab-content',
-            mb:100,
-            done: function(page, next) {
-                var lis = globalData.neverSave.scanData
-                if (page === 1) {
-                    setTimeout(() => {
-                        next(lis.slice(0, num).join(''), num < lis.length)
-                        page++
-                    }, 1000)
-                } else {
-                    next(lis.slice((page - 1) * num, page * num).join(''), page * num <= lis.length)
-                    page++
-                }
-                console.log(lis)
-            }
-        })
-    })
+    // layui.use('flow', function() {
+    //     var flow = layui.flow,
+    //         num = 10;
+    //     flow.load({
+    //         elem: '#scanLog ul',
+    //         scrollElem: '.layui-tab-content',
+    //         mb:100,
+    //         done: function(page, next) {
+    //             var lis = globalData.neverSave.scanData
+    //             if (page === 1) {
+    //                 setTimeout(() => {
+    //                     next(lis.slice(0, num).join(''), num < lis.length)
+    //                     page++
+    //                 }, 1000)
+    //             } else {
+    //                 next(lis.slice((page - 1) * num, page * num).join(''), page * num <= lis.length)
+    //                 page++
+    //             }
+    //             console.log(lis)
+    //         }
+    //     })
+    // })
 
 }
 

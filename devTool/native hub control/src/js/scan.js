@@ -170,6 +170,10 @@ function scanHandle(data, timeout) {
         // showLog($log, {
         //     message: item
         // })
+        // 
+        globalData.neverSave.length++
+        $('#scanLog ul li').eq(globalData.neverSave.length%5)
+        .html(item)
         itemHandle.add({
             parentNode: parentNode,
             mesg: JSON.parse(item),

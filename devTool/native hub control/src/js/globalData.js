@@ -20,7 +20,8 @@ const localStorageKey = 'cassiaSDKTool',
 			es: '',
 			timeOut: 5
 		},
-		scanData: []
+		scanData: [],
+		length:null
 	},
 	savedInit = {
 		_deviceMac: '',
