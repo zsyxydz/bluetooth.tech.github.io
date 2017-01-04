@@ -32,39 +32,50 @@ function start(url, data, scanSSE, cb) {
         }
         scanSSE.es = this
     }, false);
-    es.addEventListener('message', function(e) {
-        if (e.data !== ":keep-alive") {
-            globalData.neverSave.scanData.push( e.data )
-                // console.log(new Date(), globalData.neverSave.scanData.length)
-                // let time = new Date()
-            cb(e.data)
-                // console.warn("time%s,data%s", new Date - time, e.data)
-        }
-    })
-
-
-    // layui.use('flow', function() {
-    //     var flow = layui.flow,
-    //         num = 10;
-    //     flow.load({
-    //         elem: '#scanLog ul',
-    //         scrollElem: '.layui-tab-content',
-    //         mb:100,
-    //         done: function(page, next) {
-    //             var lis = globalData.neverSave.scanData
-    //             if (page === 1) {
-    //                 setTimeout(() => {
-    //                     next(lis.slice(0, num).join(''), num < lis.length)
-    //                     page++
-    //                 }, 1000)
-    //             } else {
-    //                 next(lis.slice((page - 1) * num, page * num).join(''), page * num <= lis.length)
-    //                 page++
-    //             }
-    //             console.log(lis)
-    //         }
-    //     })
+    // es.addEventListener('message', function(e) {
+    //     if (e.data !== ":keep-alive") {
+    //         globalData.neverSave.scanData.push( e.data )
+    //             // console.log(new Date(), globalData.neverSave.scanData.length)
+    //             // let time = new Date()
+    //         cb(e.data)
+    //             // console.warn("time%s,data%s", new Date - time, e.data)
+    //     }
     // })
+
+
+    layui.use('flow', function() {
+        var flow = layui.flow,
+            num = 10
+        es.addEventListener('message', function(e) {
+            if (e.data !== ":keep-alive") {
+                globalData.neverSave.scanData.push(e.data)
+                    // console.log(new Date(), globalData.neverSave.scanData.length)
+                    // let time = new Date()
+                cb(e.data)
+                    // console.warn("time%s,data%s", new Date - time, e.data)
+            }
+        })
+
+
+
+        flow.load({
+            elem: '#scanLog ul',
+            scrollElem: '.layui-tab-content',
+            mb: 100,
+            done: function(page, next) {
+                var lis = globalData.neverSave.scanData
+                if (page === 1) {
+                    setTimeout(() => {
+                        next( '<li>'+lis.slice(0, num).join('</li><li>')+'</li>', num < lis.length)
+                        page++
+                    }, 1000)
+                } else {
+                    next('<li>'+lis.slice((page - 1) * num, page * num).join('</li><li>')+'</li>', page * num <= lis.length)
+                    page++
+                }
+            }
+        })
+    })
 
 }
 

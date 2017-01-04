@@ -93,12 +93,12 @@ function formatServicesData(data,deviceMac) {
 									<span class="layui-form-item">
 										<span class="layui-inline">
 											<span class="layui-form-mid"></span>
-											<input type="checkbox"  lay-skin="switch" class='js-switch' data-action='notify' data-devicemac=${deviceMac} data-handle=${realHandle[0].handle} lay-filter='notify'>
+											<input type="checkbox"  lay-skin="switch" class='js-switch' data-action='notify' data-devicemac=${deviceMac} data-handle=${realHandle[0]?realHandle[0].handle:'undefined'} lay-filter='notify'>
 										</span>
 									</span>
 								</span>`,
 						flag: 'notify',
-						handle: realHandle[0].handle
+						handle: realHandle[0]?realHandle[0].handle:'undefined'
 					})
 				}
 				if (method.indexOf('indicate') !== -1) {
@@ -110,7 +110,7 @@ function formatServicesData(data,deviceMac) {
 									<span class="layui-form-item">
 										<span class="layui-inline">
 											<span class="layui-form-mid"></span>
-											<input type="checkbox"  lay-skin="switch" class='js-switch' data-devicemac=${deviceMac} data-action='indicate' data-handle=${realHandle[0].handle} lay-filter='notify'>
+											<input type="checkbox"  lay-skin="switch" class='js-switch' data-devicemac=${deviceMac} data-action='indicate' data-handle=${realHandle[0].handle} lay-filter='indicate'>
 										</span>
 									</span>
 								</span>`,

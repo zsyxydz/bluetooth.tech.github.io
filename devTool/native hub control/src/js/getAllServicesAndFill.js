@@ -46,7 +46,7 @@ function getAllServicesAndFill(deviceMac) {
 			}
 			return
 		}
-		hasGetServices[deviceMac] = 1
+		hasGetServices[deviceMac] = 0
 		const ajaxResult = api.getAllServices(url),
 			$parent2 = $('#getAllServices ul');
 		showMethod('getAllServices');

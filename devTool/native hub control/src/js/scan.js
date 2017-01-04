@@ -171,9 +171,9 @@ function scanHandle(data, timeout) {
         //     message: item
         // })
         // 
-        globalData.neverSave.length++
-        $('#scanLog ul li').eq(globalData.neverSave.length%5)
-        .html(item)
+        // globalData.neverSave.length++
+        // $('#scanLog ul li').eq(globalData.neverSave.length%5)
+        // .html(item)
         itemHandle.add({
             parentNode: parentNode,
             mesg: JSON.parse(item),
