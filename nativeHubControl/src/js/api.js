@@ -33,7 +33,7 @@ function start(url, data, scanSSE, cb) {
         scanSSE.es = this
     }, false);
     // es.addEventListener('message', function(e) {
-    //     if (e.data !== ":keep-alive") {
+    //     if (e.data !== "keep-alive") {
     //         globalData.neverSave.scanData.push( e.data )
     //             // console.log(new Date(), globalData.neverSave.scanData.length)
     //             // let time = new Date()
@@ -47,7 +47,7 @@ function start(url, data, scanSSE, cb) {
         var flow = layui.flow,
             num = 10
         es.addEventListener('message', function(e) {
-            if (e.data !== ":keep-alive") {
+            if (e.data !== "keep-alive") {
                 globalData.neverSave.scanData.push(e.data)
                     // console.log(new Date(), globalData.neverSave.scanData.length)
                     // let time = new Date()

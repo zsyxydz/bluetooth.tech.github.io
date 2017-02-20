@@ -30,7 +30,7 @@ notifyStateAndFill.start = function() {
 		showLog($parent, {
 			message: e.data
 		})
-		if (e.data !== ":keep-alive") {
+		if (e.data !== "keep-alive") {
 			// debugger
 			data = JSON.parse(e.data)
 			stateNotifyHandle(data)

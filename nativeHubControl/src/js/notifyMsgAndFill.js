@@ -21,7 +21,7 @@ notifyMsgAndFill.start = function() {
 		$parent2 = $('#notify ul')
 	ajaxResult.addEventListener('message', function(e) {
 		let data = null
-		if (e.data !== ":keep-alive") {
+		if (e.data !== "keep-alive") {
 			data = JSON.parse(e.data)
 			showLog($parent1, {
 				message: `<b>mac:${data.id}</b>&nbsp;&nbsp;&nbsp;${data.value}`
