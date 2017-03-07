@@ -28,7 +28,11 @@ import globalData from './globalData'
             'scanResult':'扫描结果',
             'disService':'发现服务',
             'getMsg':'接收设备信息',
-            'deviceConStateChange':'设备连接转态变化'           
+            'deviceConStateChange':'设备连接转态变化',           
+            'auguments':'参数',
+            'optional':'选填',
+            'required':'必填',
+            'description':'描述'
         },
         en = {
             '_lang':'en',
@@ -56,7 +60,12 @@ import globalData from './globalData'
             'scanResult':'Scan Results',
             'disService':'Discover Services',
             'getMsg':'Devices\'s Messages',
-            'deviceConStateChange':'Devices Connection State Changes'
+            'deviceConStateChange':'Devices Connection State Changes',
+            'auguments':'Parameter',
+            'optional':'Optiona',
+            'required':'Required',
+            'description':'Description',
+
         },
         lang = {},
         i18n = function(k) {

@@ -7,17 +7,17 @@ function htmlString() {
     <label class="layui-form-label">Disconnect a device：DELETE</label>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>参数</legend>
+    <legend i18n ='arguments'>参数</legend>
   </fieldset>
   <div class="layui-form-item">
     <label class="layui-form-label">deviceMac:</label>
     <div class="layui-input-inline">
       <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="${globalData.saved.deviceMac?globalData.saved.deviceMac:''}" lay-verify='deviceMac'  class="layui-input">
     </div>
-    <div class="layui-form-mid layui-word-aux">(必填)</div>
+    <div class="layui-form-mid layui-word-aux" i18n = 'required'>(必填)</div>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>描述</legend>
+    <legend i18n ='description'>描述</legend>
   </fieldset>
   <div class="layui-form-item layui-form-text">
     <div class="descriptors connect-des">
