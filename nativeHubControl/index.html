@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>cassia 蓝牙调试工具</title>
+	<title i18n = 'title'>cassia 蓝牙调试工具</title>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 	<link rel="stylesheet" href="./dist/lib/layui/css/layui.css">
@@ -13,7 +13,7 @@
 
 <body>
 	<fieldset class="layui-elem-field layui-field-title">
-		<legend>cassia 蓝牙调试工具</legend>
+		<legend i18n = 'header'>cassia 蓝牙调试工具</legend>
 	</fieldset>
 	<div class="top layui-form">
 		<div class="layui-inline">
@@ -29,29 +29,29 @@
 			</div>
 		</div>
 		<div class="layui-inline">
-			<button class="layui-btn layui-btn-primary" id="reboot">reboot</button>
+			<button class="layui-btn layui-btn-primary" i18n = 'reboot' id="reboot">重启</button>
 			<button lay-filter='submit' id='verify' class="layui-hide" lay-submit>submit</button>
 		</div>
 	</div>
 	<div class="box">
 		<div class="l1">
-			<h3 class="leader">总览API</h3>
+			<h3 class="leader" i18n = 'allApi'>总览API</h3>
 			<ul>
-				<li><button id="bscan" class="layui-btn  layui-btn-primary" data-type='start'>扫描设备</button></li>
-				<li><button id="bConnect" class="layui-btn  layui-btn-primary">连接设备</button></li>
-				<li><button id="bconnectList" class="layui-btn  layui-btn-primary">已连接设备</button></li>
-				<li><button id="bdiscoverSer" class="layui-btn  layui-btn-primary">发现设备服务</button></li>
-				<li><button id="bnotify" class="layui-btn  layui-btn-primary">打开Hub通知</button></li>
-				<li><button id="bnotifyState" class="layui-btn  layui-btn-primary">连接状态变化</button></li>
-				<li><button id="bwrite" class="layui-btn  layui-btn-primary">写入指令</button></li>
-				<li><button id="bdisconnect" class="layui-btn  layui-btn-primary">断开连接</button></li>
+				<li><button id="bscan" i18n = 'scanDevice'  class="layui-btn  layui-btn-primary" data-type='start'>扫描设备</button></li>
+				<li><button id="bConnect" i18n = 'connDevice' class="layui-btn  layui-btn-primary">连接设备</button></li>
+				<li><button id="bconnectList" i18n = 'connedDevice' class="layui-btn  layui-btn-primary">已连接设备</button></li>
+				<li><button id="bdiscoverSer" i18n = 'discoverServices' class="layui-btn  layui-btn-primary">发现设备服务</button></li>
+				<li><button id="bnotify" i18n = 'openNotify' class="layui-btn  layui-btn-primary">打开Hub通知</button></li>
+				<li><button id="bnotifyState" i18n = 'stateChange' class="layui-btn  layui-btn-primary">连接状态变化</button></li>
+				<li><button id="bwrite" i18n = 'writeCom' class="layui-btn  layui-btn-primary">写入指令</button></li>
+				<li><button id="bdisconnect" i18n = 'disCon' class="layui-btn  layui-btn-primary">断开连接</button></li>
 			</ul>
 		</div>
 		<div class="l2">
-			<h3 class="leader">扫描列表</h3>
+			<h3 class="leader" i18n = 'scanList'>扫描列表</h3>
 			<div class="layui-form">
 				<div class="layui-form-item">
-					<label class="layui-form-label" style="width:auto">开始扫描</label>
+					<label class="layui-form-label" i18n = 'startScan' style="width:auto">开始扫描</label>
 					<div class="layui-input-inline">
 						<input type="checkbox" id="scanSwitch" lay-skin="switch" lay-filter="switchScan" title="开始扫描">
 					</div>
@@ -61,15 +61,15 @@
 			</div>
 		</div>
 		<div class="l3">
-			<h3 class="leader">设备及服务列表</h3>
+			<h3 class="leader" i18n='devcieAndService'>设备及服务列表</h3>
 			<div class="layui-form">
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label for="">获取已连接设备</label>
+						<label for="" i18n='getList'>获取已连接设备</label>
 						<button id="" class="layui-btn connectList"><i class="layui-icon">&#x1002;</i></button>
 					</div>
 					<div class="layui-inline">
-						<label class="layui-form-label" style="width:auto">连接状态变化通知</label>
+						<label class="layui-form-label" style="width:auto" i18n='stateChangeNotify'>连接状态变化通知</label>
 						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyState" title="连接状态变化通知">
 					</div>
 				</div>
@@ -133,15 +133,15 @@
 			</div>
 		</div>
 		<div class="l4">
-			<h3 class="leader">通知列表</h3>
+			<h3 class="leader" i18n = 'notifyList'>通知列表</h3>
 			<div class="layui-form">
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label" style="width:auto">打开Hub通知</label>
+						<label class="layui-form-label" style="width:auto" i18n='openHubNotify'>打开Hub通知</label>
 						<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg" title="打开通知">
 					</div>
 					<div class="layui-inline">
-						<label>清空此列表</label>
+						<label i18n = 'clearList' >清空此列表</label>
 						<button class="layui-btn" id="clearNotify"><i class="layui-icon">&#xe640;</i></button>
 					</div>
 				</div>
@@ -152,7 +152,7 @@
 	</div>
 	<div class="log">
 		<div class="left">
-			<h3 class="leader">API接口</h3>
+			<h3 class="leader" i18n = 'apiSocket'>API接口</h3>
 			<ul class="order">
 				<!--<li>
 					<p><span>方法名</span><span>扫描设备</span><span>GET</span></p>
@@ -173,14 +173,14 @@
 		<div class="right">
 			<div class="layui-tab layui-tab-card" lay-filter="log">
 				<ul class="layui-tab-title">
-					<li class="layui-this">扫描结果</li>
-					<li>连接设备</li>
-					<li>已连接设备</li>
-					<li>发现服务</li>
-					<li>接收设备信息</li>
-					<li>设备连接转态变化</li>
-					<li>写入指令</li>
-					<li>断开连接</li>
+					<li class="layui-this" i18n = 'scanResult'>扫描结果</li>
+					<li i18n = 'connDevice'>连接设备</li>
+					<li i18n = 'connedDevice'>已连接设备</li>
+					<li i18n = 'disService'>发现服务</li>
+					<li i18n = 'getMsg'>接收设备信息</li>
+					<li i18n = 'deviceConStateChange'>设备连接转态变化</li>
+					<li i18n = 'writeCom'>写入指令</li>
+					<li i18n = 'disCon'>断开连接</li>
 				</ul>
 				<div class="layui-tab-content">
 					<div class="layui-tab-item layui-show" id="scanLog">

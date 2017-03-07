@@ -4,13 +4,15 @@ import scan from './src/js/scan'
 import notifyStateAndFill from './src/js/notifyStateAndFill'
 import notifyMsg from './src/js/notifyMsgAndFill'
 import globalData from './src/js/globalData'
+import i18n from  './src/js/i18n'
+
 import {
 	api
 } from './src/js/api'
 
 import urlArr from './src/js/urlconfig'
 
-;
+i18n('en');
 (function () {
 	$('#hubIp').val(globalData.saved.hubIp).triggerHandler('blur')
 	$('#hubMac').val(globalData.saved.hubMac).triggerHandler('blur')
