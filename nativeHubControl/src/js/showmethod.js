@@ -1,3 +1,6 @@
+import i18n from  './i18n'
+import globalData from './globalData'
+
 let methodNames = {
     scan: 'scanDevice',
     connectDevice: 'connDevice',
@@ -62,7 +65,8 @@ function showMethod(method) {
 					<p><em>URL:</em>${_url}</p>
 			    </li>`
     $showMethods.append(oLi);
-
+    
+    i18n(globalData.lang)
 
 
 }

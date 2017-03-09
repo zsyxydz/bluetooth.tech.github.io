@@ -221,6 +221,14 @@
 	
 	var _writeByHandleTip2 = _interopRequireDefault(_writeByHandleTip);
 	
+	var _globalData = __webpack_require__(/*! ./globalData */ 48);
+	
+	var _globalData2 = _interopRequireDefault(_globalData);
+	
+	var _i18n = __webpack_require__(/*! ./i18n */ 117);
+	
+	var _i18n2 = _interopRequireDefault(_i18n);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var $l1 = $('.box .l1'),
@@ -281,6 +289,7 @@
 	                    break;
 	                }
 	        }
+	        (0, _i18n2.default)(_globalData2.default.lang);
 	    });
 	}
 	
@@ -1229,13 +1238,25 @@
 /*!******************************!*\
   !*** ./src/js/showmethod.js ***!
   \******************************/
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.showMethod = exports.methodConfig = undefined;
+	
+	var _i18n = __webpack_require__(/*! ./i18n */ 117);
+	
+	var _i18n2 = _interopRequireDefault(_i18n);
+	
+	var _globalData = __webpack_require__(/*! ./globalData */ 48);
+	
+	var _globalData2 = _interopRequireDefault(_globalData);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var methodNames = {
 	    scan: 'scanDevice',
 	    connectDevice: 'connDevice',
@@ -1297,6 +1318,8 @@
 	        _url = methodConfig[method].url,
 	        oLi = '<li>\n\t\t\t\t\t<p><span i18n=\'method\'>\u65B9\u6CD5\u540D</span><span i18n=\'' + _methodName + '\'></span><span>' + _type + '</span></p>\n\t\t\t\t\t<p><em>URL:</em>' + _url + '</p>\n\t\t\t    </li>';
 	    $showMethods.append(oLi);
+	
+	    (0, _i18n2.default)(_globalData2.default.lang);
 	}
 	
 	exports.methodConfig = methodConfig;
@@ -4117,7 +4140,6 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var i18n = function i18n(language) {
-	
 	    var cn = {
 	        '_lang': 'cn',
 	        'lang': '语言',
@@ -4199,7 +4221,7 @@
 	        bl.match('cn') ? lang = cn : lang = en;
 	    };
 	
-	    if (!language) {
+	    if (typeof language === 'undefined') {
 	        try {
 	            var s = JSON.parse(localStorage.getItem('settings'));
 	            if (!s.language || s.language === 0) {
@@ -4210,32 +4232,18 @@
 	        } catch (e) {
 	            auto();
 	        }
-	        _globalData2.default.lang = lang._lang;
+	    } else if (language === 'cn') {
+	        lang = cn;
+	    } else {
+	        lang = en;
 	    }
 	
-	    i18n.format = function (str) {
-	        if (arguments.length === 1) return str;
-	        var args = Array.prototype.slice.call(arguments, 1);
-	        return String(str).replace(/\{(\d+)\}/g, function (m, i) {
-	            return args[i];
-	        });
-	    };
-	
-	    i18n.render = function (language) {
-	        console.error(language);
-	        if (language === 'cn') {
-	            lang = cn;
-	            _globalData2.default.lang = 'cn';
-	        } else if (language) {
-	            lang = en;
-	            _globalData2.default.lang = 'en';
-	        }
-	
+	    i18n.render = function () {
+	        _globalData2.default.lang = lang._lang;
 	        console.warn(_globalData2.default.lang);
 	
 	        $('#lang option').removeAttr('checked');
 	        $('#lang').val(_globalData2.default.lang);
-	
 	
 	        setTimeout(function () {
 	            var a = document.getElementsByTagName('*'),
@@ -4245,7 +4253,7 @@
 	                t = a[i];
 	                if (t && t.getAttribute) {
 	                    s = t.getAttribute('i18n');
-	                    console.log('#######', t.getAttribute('i18n-loaded') !== _globalData2.default.lang);
+	
 	                    if (s && i18n(s) && t.getAttribute('i18n-loaded') !== _globalData2.default.lang) {
 	                        t.innerHTML = i18n(s);
 	                        t.setAttribute('i18n-loaded', _globalData2.default.lang);
@@ -4254,13 +4262,8 @@
 	            }
 	        }, 15);
 	    };
-	    i18n.render(language);
-	    document.body.removeEventListener('DOMNodeInserted', function () {
-	        i18n.render();
-	    }, false);
-	    document.body.addEventListener('DOMNodeInserted', function () {
-	        i18n.render();
-	    }, false);
+	    i18n.render();
+	    return i18n;
 	};
 	
 	exports.default = i18n;
