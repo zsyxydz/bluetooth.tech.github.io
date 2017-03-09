@@ -8,7 +8,7 @@ function htmlString() {
     <label class="layui-form-label">Connect a device：GET</label>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend i18n = 'auguments'>参数</legend>
+    <legend  i18n='arguments'>参数</legend>
   </fieldset>
   <div class="layui-form-item">
     <label class="layui-form-label">chip:</label>

@@ -12,7 +12,8 @@ import {
 
 import urlArr from './src/js/urlconfig'
 
-i18n('en');
+
+i18n();
 (function () {
 	$('#hubIp').val(globalData.saved.hubIp).triggerHandler('blur')
 	$('#hubMac').val(globalData.saved.hubMac).triggerHandler('blur')
@@ -31,6 +32,9 @@ layui.use(['layer', 'form'], function () {
 
 
 	});
+	form.on('select(lang)',function(data){
+		i18n(data.value)
+	})
 	form.on('switch(switchScan)', function (data) {
 		if (data.elem.checked) {
 			console.log(globalData.saved)

@@ -4,7 +4,8 @@ import globalData from './globalData'
     var cn = {
             //--common--//
             '_lang':'cn',
-            'title':'cassia 蓝牙调试工具',
+            'lang':'语言',
+            'title':'Cassia 蓝牙调试工具',
             'header': 'cassia 蓝牙调试工具',
             'reboot': '重启',
             'allApi': '总览API',
@@ -29,13 +30,17 @@ import globalData from './globalData'
             'disService':'发现服务',
             'getMsg':'接收设备信息',
             'deviceConStateChange':'设备连接转态变化',           
-            'auguments':'参数',
-            'optional':'选填',
-            'required':'必填',
-            'description':'描述'
+            'arguments':'参数',
+            'optional':'(选填)',
+            'required':'(必填)',
+            'description':'描述',
+            'hubNotifyStatus':'Hub通知状态',
+            'method':'方法名',
+            'addMore':'加载更多'
         },
         en = {
             '_lang':'en',
+            'lang':'Language',
             'title':'Cassia Blooth Dev Tools',
             'header': 'Cassia Blooth Dev Tools',
             'reboot': 'Reboot',
@@ -61,11 +66,13 @@ import globalData from './globalData'
             'disService':'Discover Services',
             'getMsg':'Devices\'s Messages',
             'deviceConStateChange':'Devices Connection State Changes',
-            'auguments':'Parameter',
-            'optional':'Optiona',
-            'required':'Required',
+            'arguments':'Parameter',
+            'optional':'(optional)',
+            'required':'(Required)',
             'description':'Description',
-
+            'hubNotifyStatus':'Hub Notify Status',
+            'method':'Method',
+            'addMore':'Add More'
         },
         lang = {},
         i18n = function(k) {
@@ -77,16 +84,20 @@ import globalData from './globalData'
         };
 
     /* auto select language form settings */
-    try {
-        var s = JSON.parse(localStorage.getItem('settings'));
-        if (!s.language || s.language === 0) {
-            auto();
-        } else {
-            (s.language === 'cn') ? (lang = cn) : (lang = en);
+    if(!language){
+        try {
+            var s = JSON.parse(localStorage.getItem('settings'));
+            if (!s.language || s.language === 0) {
+                auto();
+            } else {
+                (s.language === 'cn') ? (lang = cn) : (lang = en);
+            }
+        } catch (e) {
+            auto()
         }
-    } catch (e) {
-        auto()
+        globalData.lang = lang._lang
     }
+   
 
     /**
      * i18n.format
@@ -106,7 +117,8 @@ import globalData from './globalData'
         })
     };
 
-    i18n.render = function() {
+    i18n.render = function(language) {
+        console.error(language)
         if (language === 'cn') {
             lang = cn
             globalData.lang = 'cn'
@@ -114,10 +126,12 @@ import globalData from './globalData'
             lang = en
             globalData.lang = 'en'
         }
+        // globalData.lang= lang._lang
+        console.warn(globalData.lang)
         
-        $('select option').removeAttr('checked')
-        $('select').val(lang._lang)
-        // $(`select option[value='${lang._lang}']`).attr('selected','true')
+        $('#lang option').removeAttr('checked')
+        $('#lang').val(globalData.lang)
+        // $(`#lang option[value='${globalData.lang}']`).attr('selected','true')
 
         setTimeout(function() {
             // $('*').each(function () {
@@ -127,20 +141,19 @@ import globalData from './globalData'
                 t = a[i];
                 if (t && t.getAttribute) {
                     s = t.getAttribute('i18n');
-                    if (s && i18n(s) && !t.getAttribute('i18n-loaded')) {
+                    console.log('#######',t.getAttribute('i18n-loaded')!==globalData.lang)
+                    if (s && i18n(s) && t.getAttribute('i18n-loaded')!==globalData.lang) {
                         t.innerHTML = i18n(s);
-                        // t.setAttribute('i18n-loaded', true);
+                        t.setAttribute('i18n-loaded', globalData.lang);
                     }
                 }
             }
             // });
-        }, 10);
+        }, 15);
     };
-
-    document.body.addEventListener('DOMNodeInserted', function(e) {
-        i18n.render();
-    });
-    return i18n
+    i18n.render(language);
+    document.body.removeEventListener('DOMNodeInserted',function(){i18n.render()},false)
+    document.body.addEventListener('DOMNodeInserted', function(){i18n.render()},false);
   
 }
 

@@ -85,7 +85,7 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
-	(0, _i18n2.default)('en');
+	(0, _i18n2.default)();
 	(function () {
 		$('#hubIp').val(_globalData2.default.saved.hubIp).triggerHandler('blur');
 		$('#hubMac').val(_globalData2.default.saved.hubMac).triggerHandler('blur');
@@ -99,6 +99,9 @@
 			_api.api.reboot(_urlconfig2.default.reboot).done(layer.load(2, {
 				time: 5 * 1000
 			}));
+		});
+		form.on('select(lang)', function (data) {
+			(0, _i18n2.default)(data.value);
 		});
 		form.on('switch(switchScan)', function (data) {
 			if (data.elem.checked) {
@@ -1234,14 +1237,14 @@
 	    value: true
 	});
 	var methodNames = {
-	    scan: '扫描设备',
-	    connectDevice: '连接设备',
-	    getConnectList: '已连接备',
-	    getAllServices: '发现服务',
-	    notify: '接收设备信息',
-	    getConnectState: '设备连接状态变化',
-	    writeByHandle: '写入指令',
-	    disconnectDevice: '断开连接'
+	    scan: 'scanDevice',
+	    connectDevice: 'connDevice',
+	    getConnectList: 'connedDevice',
+	    getAllServices: 'disService',
+	    notify: 'getMsg',
+	    getConnectState: 'deviceConStateChange',
+	    writeByHandle: 'writeCom',
+	    disconnectDevice: 'disCon'
 	};
 	
 	var methodConfig = {
@@ -1292,7 +1295,7 @@
 	    var _methodName = methodConfig[method].methodName,
 	        _type = methodConfig[method].type,
 	        _url = methodConfig[method].url,
-	        oLi = '<li>\n\t\t\t\t\t<p><span>\u65B9\u6CD5\u540D</span><span>' + _methodName + '</span><span>' + _type + '</span></p>\n\t\t\t\t\t<p><em>URL:</em>' + _url + '</p>\n\t\t\t\t</li>';
+	        oLi = '<li>\n\t\t\t\t\t<p><span i18n=\'method\'>\u65B9\u6CD5\u540D</span><span i18n=\'' + _methodName + '\'></span><span>' + _type + '</span></p>\n\t\t\t\t\t<p><em>URL:</em>' + _url + '</p>\n\t\t\t    </li>';
 	    $showMethods.append(oLi);
 	}
 	
@@ -3337,7 +3340,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function htmlString() {
-	  var temp = '<form class="layui-form  connect-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Connect a device\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n = \'auguments\'>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label">chip:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="chip"  placeholder="0 OR 1" lay-verify=\'zeroOne\'  value="' + (_globalData2.default.saved.chip ? _globalData2.default.saved.chip : '') + '" class="layui-input">\n    </div>\n     <div class="layui-form-mid layui-word-aux" i18n = \'required\'>(\u5FC5\u586B)</div>\n  </div>\n  <div class="layui-form-item">\n    <label class="layui-form-label">deviceMac:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="' + (_globalData2.default.saved.deviceMac ? _globalData2.default.saved.deviceMac : '') + '" lay-verify=\'deviceMac\'  class="layui-input">\n    </div>\n    <div class="layui-form-mid layui-word-aux" i18n = \'required\'>(\u5FC5\u586B)</div>\n  </div>\n  <div class="layui-form-item select">\n    <label class="layui-form-label">type:</label>\n    <div class="layui-inline">\n     <select name="type">\n      <option value="public" ' + (_globalData2.default.type === 'public' ? 'selected' : null) + '>public</option>\n      <option value="random" ' + (_globalData2.default.type === 'random' ? 'selected' : null) + '>random</option>\n     </select>\n    </div>\n  </div>\n  \n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n = \'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>chip\uFF1A</b>\u84DD\u7259\u8DEF\u7531\u5668\u5171\u6709\u4E24\u4E2A\u82AF\u7247\uFF0C\u82AF\u72470\u548C\u82AF\u72471\uFF0C\u5728\u8C03\u7528\u63A5\u53E3\u65F6\u53EF\u4EE5\u901A\u8FC7\u6DFB\u52A0queryString\u6765\u9009\u62E9\u82AF\u7247(?chip=0\u6216\u8005?chip=1)\uFF0C\u6BCF\u4E2A\u82AF\u7247\u7684\u8FDE\u63A5\u4E0A\u9650\u662F11\u4E2A\u8BBE\u5907\uFF0C\u5982\u679C\u4E0D\u586B\u6B64\u53C2\u6570\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u6839\u636E\u8FDE\u63A5\u6570\u91CF\u81EA\u52A8\u5339\u914D\u82AF\u7247\u3002</p>\n      <p><b>deviceMac\uFF1A</b>\u8981\u8FDE\u63A5\u7684\u8BBE\u5907\u7684MAC\u5730\u5740\u3002</p>\n      <p><b>type\uFF1A</b>\u6B64\u53C2\u6570\u5728body\u4E2D\uFF0C\u662F\u5FC5\u586B\u9879\u3002\u84DD\u7259\u8BBE\u5907\u7684MAC\u5730\u5740\u5206\u4E3Arandom\u548Cpublic\u4E24\u79CD\uFF0C\u6240\u4EE5\u5728\u8FDE\u63A5\u8BBE\u5907\u65F6\uFF0C\u9700\u8981\u6307\u51FA\u8BBE\u5907\u7684\u5E7F\u64ADtype\uFF0C\u5E7F\u64ADtype\u53EF\u4EE5\u4ECE\u626B\u63CF\u6570\u636E\u4E2D\u83B7\u53D6\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="connect">do</button>\n    </div>\n  </div>\n</form>';
+	  var temp = '<form class="layui-form  connect-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Connect a device\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend  i18n=\'arguments\'>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label">chip:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="chip"  placeholder="0 OR 1" lay-verify=\'zeroOne\'  value="' + (_globalData2.default.saved.chip ? _globalData2.default.saved.chip : '') + '" class="layui-input">\n    </div>\n     <div class="layui-form-mid layui-word-aux" i18n = \'required\'>(\u5FC5\u586B)</div>\n  </div>\n  <div class="layui-form-item">\n    <label class="layui-form-label">deviceMac:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="' + (_globalData2.default.saved.deviceMac ? _globalData2.default.saved.deviceMac : '') + '" lay-verify=\'deviceMac\'  class="layui-input">\n    </div>\n    <div class="layui-form-mid layui-word-aux" i18n = \'required\'>(\u5FC5\u586B)</div>\n  </div>\n  <div class="layui-form-item select">\n    <label class="layui-form-label">type:</label>\n    <div class="layui-inline">\n     <select name="type">\n      <option value="public" ' + (_globalData2.default.type === 'public' ? 'selected' : null) + '>public</option>\n      <option value="random" ' + (_globalData2.default.type === 'random' ? 'selected' : null) + '>random</option>\n     </select>\n    </div>\n  </div>\n  \n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n = \'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>chip\uFF1A</b>\u84DD\u7259\u8DEF\u7531\u5668\u5171\u6709\u4E24\u4E2A\u82AF\u7247\uFF0C\u82AF\u72470\u548C\u82AF\u72471\uFF0C\u5728\u8C03\u7528\u63A5\u53E3\u65F6\u53EF\u4EE5\u901A\u8FC7\u6DFB\u52A0queryString\u6765\u9009\u62E9\u82AF\u7247(?chip=0\u6216\u8005?chip=1)\uFF0C\u6BCF\u4E2A\u82AF\u7247\u7684\u8FDE\u63A5\u4E0A\u9650\u662F11\u4E2A\u8BBE\u5907\uFF0C\u5982\u679C\u4E0D\u586B\u6B64\u53C2\u6570\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u6839\u636E\u8FDE\u63A5\u6570\u91CF\u81EA\u52A8\u5339\u914D\u82AF\u7247\u3002</p>\n      <p><b>deviceMac\uFF1A</b>\u8981\u8FDE\u63A5\u7684\u8BBE\u5907\u7684MAC\u5730\u5740\u3002</p>\n      <p><b>type\uFF1A</b>\u6B64\u53C2\u6570\u5728body\u4E2D\uFF0C\u662F\u5FC5\u586B\u9879\u3002\u84DD\u7259\u8BBE\u5907\u7684MAC\u5730\u5740\u5206\u4E3Arandom\u548Cpublic\u4E24\u79CD\uFF0C\u6240\u4EE5\u5728\u8FDE\u63A5\u8BBE\u5907\u65F6\uFF0C\u9700\u8981\u6307\u51FA\u8BBE\u5907\u7684\u5E7F\u64ADtype\uFF0C\u5E7F\u64ADtype\u53EF\u4EE5\u4ECE\u626B\u63CF\u6570\u636E\u4E2D\u83B7\u53D6\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="connect">do</button>\n    </div>\n  </div>\n</form>';
 	  return temp;
 	}
 	
@@ -3381,7 +3384,7 @@
 	function tip(layer, htmlString, $dom, dos, form) {
 		layer.open({
 			type: 4,
-			area: ['313px', 'auto'],
+			area: ['400px', 'auto'],
 	
 			closeBtn: 0,
 			shadeClose: true,
@@ -3424,7 +3427,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function htmlString() {
-	  var temp = '<form class="layui-form  scan-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Scan\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n = \'auguments\'>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label">chip:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="chip"  value=' + (_globalData2.default.saved.chip !== '' ? _globalData2.default.saved.chip : '0') + ' placeholder="0\u6216\u80051" lay-verify=\'zeroOrOne\'  class="layui-input">\n    </div>\n     <div class="layui-form-mid layui-word-aux" i18n=\'optiona\'>(\u9009\u586B)</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors scan-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u626B\u63CF\u5468\u8FB9\u7684\u8BBE\u5907,\u5E76\u5C06\u84DD\u7259\u8BBE\u5907\u7684MAC\u5730\u5740(bdaddr)\u3001\u5E7F\u64ADtype\uFF08bdaddrType\uFF09\u3001\u5E7F\u64AD\u62A5\u6570\u636E\uFF08adData/scanData\uFF09\u3001\u8BBE\u5907\u540D\u79F0\uFF08name\uFF09\u3001\u4FE1\u53F7\u5F3A\u5EA6\uFF08rssi\uFF09\u7B49\u4FE1\u606F\u4EE5http response\u7684\u5F62\u5F0F\u8FD4\u56DE\uFF08\u539F\u59CB\u6570\u636E\u89C1\u201Chttp response\u201D\u7A97\u53E3\u3002</p>\n      <p><b> \u53C2\u6570\u89E3\u91CA\uFF1Achip\uFF1A</b>\u84DD\u7259\u8DEF\u7531\u5668\u5171\u6709\u4E24\u4E2A\u82AF\u7247\uFF0C\u82AF\u72470\u548C\u82AF\u72471\uFF0C\u5728\u8C03\u7528\u63A5\u53E3\u65F6\u53EF\u4EE5\u901A\u8FC7\u6DFB\u52A0queryString\u6765\u9009\u62E9\u82AF\u7247(?chip=0\u6216\u8005?chip=1)\uFF0C\u5982\u679C\u4E0D\u586B,\u4F1A\u9ED8\u8BA4\u7528\u82AF\u72470\u626B\u63CF\uFF0C\u82AF\u72470\u626B\u63CF\u8DDD\u79BB\u4F1A\u4F18\u4E8E\u82AF\u72471\uFF0C\u4E5F\u5EFA\u8BAE\u4E00\u822C\u60C5\u51B5\u4E0B\u4F7F\u7528\u82AF\u72470\u626B\u63CF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    \n    </div>\n  </div>\n  \n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="scan">do</button>\n    </div>\n  </div>\n</form>';
+	  var temp = '<form class="layui-form  scan-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Scan\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n = \'arguments\'>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label">chip:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="chip"  value=' + (_globalData2.default.saved.chip !== '' ? _globalData2.default.saved.chip : '0') + ' placeholder="0\u6216\u80051" lay-verify=\'zeroOrOne\'  class="layui-input">\n    </div>\n     <div class="layui-form-mid layui-word-aux" i18n=\'optional\'>(\u9009\u586B)</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors scan-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u626B\u63CF\u5468\u8FB9\u7684\u8BBE\u5907,\u5E76\u5C06\u84DD\u7259\u8BBE\u5907\u7684MAC\u5730\u5740(bdaddr)\u3001\u5E7F\u64ADtype\uFF08bdaddrType\uFF09\u3001\u5E7F\u64AD\u62A5\u6570\u636E\uFF08adData/scanData\uFF09\u3001\u8BBE\u5907\u540D\u79F0\uFF08name\uFF09\u3001\u4FE1\u53F7\u5F3A\u5EA6\uFF08rssi\uFF09\u7B49\u4FE1\u606F\u4EE5http response\u7684\u5F62\u5F0F\u8FD4\u56DE\uFF08\u539F\u59CB\u6570\u636E\u89C1\u201Chttp response\u201D\u7A97\u53E3\u3002</p>\n      <p><b> \u53C2\u6570\u89E3\u91CA\uFF1Achip\uFF1A</b>\u84DD\u7259\u8DEF\u7531\u5668\u5171\u6709\u4E24\u4E2A\u82AF\u7247\uFF0C\u82AF\u72470\u548C\u82AF\u72471\uFF0C\u5728\u8C03\u7528\u63A5\u53E3\u65F6\u53EF\u4EE5\u901A\u8FC7\u6DFB\u52A0queryString\u6765\u9009\u62E9\u82AF\u7247(?chip=0\u6216\u8005?chip=1)\uFF0C\u5982\u679C\u4E0D\u586B,\u4F1A\u9ED8\u8BA4\u7528\u82AF\u72470\u626B\u63CF\uFF0C\u82AF\u72470\u626B\u63CF\u8DDD\u79BB\u4F1A\u4F18\u4E8E\u82AF\u72471\uFF0C\u4E5F\u5EFA\u8BAE\u4E00\u822C\u60C5\u51B5\u4E0B\u4F7F\u7528\u82AF\u72470\u626B\u63CF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    \n    </div>\n  </div>\n  \n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="scan">do</button>\n    </div>\n  </div>\n</form>';
 	  return temp;
 	}
 	
@@ -3658,7 +3661,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function htmlString() {
-		var temp = '<form class="layui-form  connect-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Get connected devices as list\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662FGET\u8BF7\u6C42\uFF0C\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u5C06\u76EE\u524D\u8FDE\u63A5\u7684\u8BBE\u5907\u7684\u5217\u8868\u8FD4\u56DE\u5230pc\u7AEF\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="connectList">do</button>\n    </div>\n  </div>\n</form>';
+		var temp = '<form class="layui-form  connect-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Get connected devices as list\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'arguments\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662FGET\u8BF7\u6C42\uFF0C\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u84DD\u7259\u8DEF\u7531\u5668\u4F1A\u5C06\u76EE\u524D\u8FDE\u63A5\u7684\u8BBE\u5907\u7684\u5217\u8868\u8FD4\u56DE\u5230pc\u7AEF\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="connectList">do</button>\n    </div>\n  </div>\n</form>';
 		return temp;
 	}
 	
@@ -3760,7 +3763,7 @@
 	
 	function htmlString() {
 			console.log(_globalData2.default.neverSave.notifySSE.status);
-			var temp = '<form class="layui-form  notifyMsg-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Receive indication &amp; notification\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>Hub\u901A\u77E5\u72B6\u6001</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <div class="layui-inline">\n\t\t<label class="layui-form-label" style="width:auto">\u6253\u5F00\u901A\u77E5</label>\n\t\t<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg1" title="\u6253\u5F00\u901A\u77E5" ' + (_globalData2.default.neverSave.notifySSE.status.indexOf('pen') !== -1 ? 'checked' : '') + '>\n\t</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\uFF0C\u5F53\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\u540E\uFF0C\u84DD\u7259\u8BBE\u5907\u4F1A\u5C06\u6D88\u606F\u4E0A\u62A5\u5230\u84DD\u7259\u8DEF\u7531\u5668\uFF0C\u4F46\u662F\u5982\u679C\u5728pc\u4E0A\u5E0C\u671B\u63A5\u6536\u5230\u6B64\u6D88\u606F\uFF0C\u8FD8\u9700\u8981\u8C03\u7528\u6B64\u63A5\u53E3\u6765\u5EFA\u7ACB\u84DD\u7259\u8DEF\u7531\u5668\u5230pc\u7AEF\u7684\u6570\u636E\u901A\u8DEF\uFF0C\u8FD9\u6837\u84DD\u7259\u8DEF\u7531\u5668\u624D\u4F1A\u5C06\u6536\u5230\u7684\u84DD\u7259\u8BBE\u5907\u7684\u6570\u636E\u8F6C\u53D1\u5230pc\u7AEF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="bnotify">do</button>\n    </div>\n  </div>\n</form>';
+			var temp = '<form class="layui-form  notifyMsg-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Receive indication &amp; notification\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n =\'hubNotifyStatus\'>Hub\u901A\u77E5\u72B6\u6001</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <div class="layui-inline">\n\t\t<label class="layui-form-label" style="width:auto" i18n=\'openHubNotify\'>\u6253\u5F00Hub\u901A\u77E5</label>\n\t\t<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg1" title="\u6253\u5F00\u901A\u77E5" ' + (_globalData2.default.neverSave.notifySSE.status.indexOf('pen') !== -1 ? 'checked' : '') + '>\n\t</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\uFF0C\u5F53\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\u540E\uFF0C\u84DD\u7259\u8BBE\u5907\u4F1A\u5C06\u6D88\u606F\u4E0A\u62A5\u5230\u84DD\u7259\u8DEF\u7531\u5668\uFF0C\u4F46\u662F\u5982\u679C\u5728pc\u4E0A\u5E0C\u671B\u63A5\u6536\u5230\u6B64\u6D88\u606F\uFF0C\u8FD8\u9700\u8981\u8C03\u7528\u6B64\u63A5\u53E3\u6765\u5EFA\u7ACB\u84DD\u7259\u8DEF\u7531\u5668\u5230pc\u7AEF\u7684\u6570\u636E\u901A\u8DEF\uFF0C\u8FD9\u6837\u84DD\u7259\u8DEF\u7531\u5668\u624D\u4F1A\u5C06\u6536\u5230\u7684\u84DD\u7259\u8BBE\u5907\u7684\u6570\u636E\u8F6C\u53D1\u5230pc\u7AEF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="bnotify">do</button>\n    </div>\n  </div>\n</form>';
 			return temp;
 	}
 	
@@ -3823,7 +3826,7 @@
 	
 	function htmlString() {
 			console.log(_globalData2.default.neverSave.stateSSE.status);
-			var temp = '<form class="layui-form  notifyState-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Receive indication &amp; notification\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>Hub\u901A\u77E5\u72B6\u6001</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <div class="layui-inline">\n\t\t<label class="layui-form-label" style="width:auto">\u6253\u5F00\u901A\u77E5</label>\n\t\t<input type="checkbox" lay-skin="switch" lay-filter="" title="\u6253\u5F00\u901A\u77E5" ' + (_globalData2.default.neverSave.stateSSE.status.indexOf('pen') !== -1 ? 'checked' : '') + '>\n\t</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\uFF0C\u5F53\u84DD\u7259\u8DEF\u7531\u5668\u4E0A\u7684\u84DD\u7259\u8BBE\u5907\u7684\u8FDE\u63A5\u72B6\u6001\u53D1\u751F\u6539\u53D8\u65F6\uFF08\u8FDE\u63A5\u6210\u529F\u6216\u8005\u53D1\u751F\u65AD\u8FDE\uFF09\uFF0C\u4F1A\u901A\u8FC7\u6B64\u63A5\u53E3\u5C06\u6D88\u606F\u901A\u77E5\u5230pc\u7AEF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="bnotifyState">do</button>\n    </div>\n  </div>\n</form>';
+			var temp = '<form class="layui-form  notifyState-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Receive indication &amp; notification\uFF1AGET/SSE</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'hubNotifyStatus\'>Hub\u901A\u77E5\u72B6\u6001</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <div class="layui-inline">\n\t\t<label class="layui-form-label" style="width:auto" i18n=\'openHubNotify\'>\u6253\u5F00Hub\u901A\u77E5</label>\n\t\t<input type="checkbox" lay-skin="switch" lay-filter="" title="\u6253\u5F00\u901A\u77E5" ' + (_globalData2.default.neverSave.stateSSE.status.indexOf('pen') !== -1 ? 'checked' : '') + '>\n\t</div>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'description\'>\u63CF\u8FF0</legend>\n  </fieldset>\n  <div class="layui-form-item layui-form-text">\n    <div class="descriptors connect-des">\n      <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n      <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u6B64\u63A5\u53E3\u662Fsse\u957F\u94FE\u63A5\uFF0C\u5F53\u84DD\u7259\u8DEF\u7531\u5668\u4E0A\u7684\u84DD\u7259\u8BBE\u5907\u7684\u8FDE\u63A5\u72B6\u6001\u53D1\u751F\u6539\u53D8\u65F6\uFF08\u8FDE\u63A5\u6210\u529F\u6216\u8005\u53D1\u751F\u65AD\u8FDE\uFF09\uFF0C\u4F1A\u901A\u8FC7\u6B64\u63A5\u53E3\u5C06\u6D88\u606F\u901A\u77E5\u5230pc\u7AEF\u3002</p>\n      <p><b>SSE\uFF1A</b>server-sent events\uFF0C\u7B80\u79F0\uFF1Asee\u3002\u662F\u4E00\u79CDhttp\u7684\u957F\u94FE\u63A5\uFF0C\u8BF7\u6C42\u9700\u8981\u624B\u52A8\u5173\u95ED\uFF0C\u5426\u5219\u7406\u8BBA\u4E0A\u5728\u4E0D\u62A5\u9519\u7684\u60C5\u51B5\u4E0B\u4F1A\u4E00\u76F4\u8FDB\u884C\uFF0C\u6BCF\u6761\u6570\u636E\u4F1A\u4EE5\u201Cdata: \u201D \u5F00\u5934\u3002\u5728\u8C03\u8BD5\u4E2D\u53EF\u4EE5\u76F4\u63A5\u5C06sse\u7684url\u8F93\u5165\u5728\u6D4F\u89C8\u5668\u4E2D\u8FDB\u884C\u8C03\u7528\u3002\u4F46\u662F\u5728\u7F16\u7A0B\u4E2D\u4F7F\u7528\u4E00\u822C\u7684http\u8BF7\u6C42\u65E0\u6CD5\u8BF7\u6C42\u5230\u6570\u636E(\u4E00\u822C\u7684http\u8BF7\u6C42\u90FD\u662F\u5728\u8BF7\u6C42\u7ED3\u675F\u540E\u8FD4\u56DE\u6240\u6709\u7684\u6570\u636E)\uFF0C\u6211\u4EEC\u76EE\u524D\u63D0\u4F9B\u4E86iOS/java/nodejs/js/c#\u7B49\u7684demo\u6765\u5B9E\u73B0sse\u7684\u8C03\u7528\uFF0C\u5982\u679C\u5728\u8FD9\u65B9\u9762\u9047\u5230\u56F0\u96BE\u53EF\u4EE5\u53C2\u8003\u3002\u53E6\u5916\uFF0C\u5F53\u8C03\u7528sse\u65F6\uFF0C\u6700\u597D\u5BF9\u8BE5\u957F\u94FE\u63A5\u8FDB\u884C\u76D1\u63A7\uFF0C\u4EE5\u4FBF\u5728\u957F\u94FE\u63A5\u51FA\u73B0\u9519\u8BEF\u6216\u610F\u5916\u505C\u6B62\u540E\u8FDB\u884C\u91CD\u542F\uFF0C\u6216\u8005\u5176\u4ED6\u64CD\u4F5C\u3002</p>\n    </div>\n  </div>\n  <div class="layui-form-item">\n    <div class="layui-input-block">\n      <button class="layui-btn" lay-submit lay-filter="bnotifyState">do</button>\n    </div>\n  </div>\n</form>';
 			return temp;
 	}
 	
@@ -3934,7 +3937,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function htmlString() {
-	  var temp = '<form class="layui-form  write-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Write by handle\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label" >deviceMac:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="' + (_globalData2.default.saved.deviceMac ? _globalData2.default.saved.deviceMac : '') + '" lay-verify=\'deviceMac\'  class="layui-input">\n    </div>\n    <div class="layui-form-mid layui-word-aux">(\u5FC5\u586B)</div>\n  </div>\n   <div class="layui-form-item">\n    <label class="layui-form-label" style="width:auto">handle & value</label>\n    <div class="layui-form-mid layui-word-aux">(\u5FC5\u586B)</div>\n    <div class="">\n    <textarea placeholder="25:55AA101E\n27:55AA00FF"  class="layui-textarea" lay-verify="valueHandleArr">' + (_globalData2.default.saved.commond ? _globalData2.default.saved.commond : '') + '</textarea>\n    </div>\n  </div>\n\n<fieldset class="layui-elem-field layui-field-title">\n  <legend>\u63CF\u8FF0</legend>\n</fieldset>\n<div class="layui-form-item layui-form-text">\n  <div class="descriptors connect-des">\n    <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n    <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u672C\u63A5\u53E3\u662F\u8D1F\u8D23\u4E0E\u8BBE\u5907\u901A\u8BAF\u7684\u4E3B\u8981\u63A5\u53E3\uFF0C\u5177\u4F53\u8D1F\u8D23\u5411\u84DD\u7259\u8BBE\u5907\u5199\u5165\u6307\u4EE4\u4EE5\u53CA\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\uFF0C\u4E0B\u9762\u4F1A\u5177\u4F53\u8BB2\u89E3\u4E24\u4E2A\u529F\u80FD\u5206\u522B\u5982\u4F55\u5B9E\u73B0\u3002</p>\n    <p><b>1\u3001\u5BF9\u84DD\u7259\u8BBE\u5907\u5199\u5165\u6307\u4EE4\uFF1A</b>\u5F53\u9700\u8981\u5F80\u84DD\u7259\u8BBE\u5907\u6307\u5B9A\u7684characteristic\u5199\u5165\u6307\u4EE4\u65F6\uFF0C\u5148\u8C03\u7528\u201C\u53D1\u73B0\u670D\u52A1\u201D\u7684\u63A5\u53E3\uFF0C\u5F53\u8FD4\u56DE\u84DD\u7259\u8BBE\u5907\u670D\u52A1\u4FE1\u606F\u7684\u6811\u5F62\u5217\u8868\u540E\uFF0C\u5BFB\u627E\u6307\u5B9A\u7684characteristic\u6240\u5BF9\u5E94\u7684valueHandle\uFF08characteristic\u5185\u5305\u542Bhandle\u3001valueHandle\u3001properties\u3001descriptors\u7B49\u5C5E\u6027\uFF09\uFF0C\u7136\u540E\u8C03\u7528\u6B64\u63A5\u53E3\u65F6\uFF0Chandle\u5BF9\u5E94\u7684\u503C\u662Fcharacteristic\u7684valueHandle\uFF0Cvalue\u5BF9\u5E94\u7684\u503C\u662F\u9700\u8981\u5199\u5165\u7684\u6307\u4EE4\u5185\u5BB9\uFF08\u5C06\u6307\u4EE4\u7684\u6BCF\u4E2Abyte\u987A\u5E8F\u62FC\u5728\u4E00\u8D77\u5199\u6210\u4E00\u4E2A\u5B57\u7B26\u4E32\uFF09\u3002</p>\n    <p><b>2\u3001\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\uFF1A</b>\u5F53\u9700\u8981\u63A5\u6536\u84DD\u7259\u8BBE\u5907\u53D1\u6765\u7684\u6570\u636E\u65F6\uFF0C\u9700\u8981\u5148\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification\u6216\u8005indication\uFF08\u6253\u5F00\u7684\u8FC7\u7A0B\u5728\u672C\u8D28\u4E0A\u4E5F\u662F\u5BF9\u84DD\u7259\u8BBE\u5907\u4E0B\u53D1\u7684\u4E00\u4E2A\u6307\u4EE4\uFF09\uFF0C\u5F53\u9700\u8981\u6253\u5F00\u6307\u5B9Acharacteristic\u7684notification\u6216\u8005indication\u65F6\uFF0C\u4E5F\u662F\u5148\u8C03\u7528\u201C\u53D1\u73B0\u670D\u52A1\u201D\u7684\u65B9\u6CD5\uFF0C\u627E\u5230\u6307\u5B9A\u7684characteristic\u6240\u5BF9\u5E94\u7684descriptors\uFF0C\u6253\u5F00descriptors\uFF0C\u627E\u5230uuid\u5305\u542B\u201C00002902\u201D\u6240\u5BF9\u5E94\u7684handle\uFF0C\u7136\u540E\u8C03\u7528\u6B64\u63A5\u53E3\uFF0C\u63A5\u53E3\u4E2D\u7684handle\u5C31\u662F\u4E0A\u9762descriptor\u7684handle\uFF0C\u5982\u679C\u662F\u6253\u5F00notification\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0100\u201D\uFF0C\u5982\u679C\u662F\u6253\u5F00indication\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0200\u201D\uFF0C\u5982\u679C\u662F\u5173\u95EDnotification/indication\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0000\u201D\u3002</p>\n    <p><b>\u53C2\u6570\u89E3\u91CA\uFF1A deviceMac\uFF1A</b>\u8981\u5199\u5165\u6307\u4EE4\u7684\u8BBE\u5907\u7684MAC\u5730\u5740\u3002</p>\n    <p><b>handle\uFF1A</b>\u901A\u8FC7\u201C\u53D1\u73B0\u670D\u52A1\u63A5\u53E3\u201D\u6240\u627E\u5230\u7684characteristic\u6240\u5BF9\u5E94\u7684valueHandle\u6216\u8005handle\u3002</p>\n    <p><b>value\uFF1A</b>\u8981\u5199\u5165\u7684\u6307\u4EE4\u7684\u503C\uFF0C\u6216\u8005\u201C0100\u201D\uFF08\u6253\u5F00notification\uFF09\u3001\u201C0200\u201D\uFF08\u6253\u5F00indication\uFF09\u3001\u201C0000\u201D\uFF08\u5173\u95EDnotification\u548Cindication\uFF09\u3002</p>\n    <p><b>handle & value\u8F93\u5165\u683C\u5F0F</b>\n    <p>\u5355\u6761\u6307\u4EE4\u683C\u5F0F handle:value1,type</p>\n    <p>handle\u4E3A\u8981\u5199\u5165\u7684handle\u598220</p>\n    <p>value1 \u4E3A\u8981\u5199\u5165\u7684\u503C\uFF08\u5341\u516D\u8FDB\u5236\uFF09</p>\n    <p>type\u4E3A\u5199\u5165\u7C7B\u578B\uFF0C0\u4EE3\u8868write without response\uFF0C1\u4EE3\u8868write with response</p>\n    <p>\u591A\u6761\u8BED\u53E5\u4E4B\u95F4\u7528\u56DE\u8F66\u952E\u6362\u884C</p>\n  </div>\n</div>\n<div class="layui-form-item">\n  <div class="layui-input-block">\n    <button class="layui-btn" lay-submit lay-filter="write">do</button>\n  </div>\n</div>\n</form>';
+	  var temp = '<form class="layui-form  write-tip tip" action="#">\n  <div class="layui-form-item">\n    <label class="layui-form-label">Write by handle\uFF1AGET</label>\n  </div>\n  <fieldset class="layui-elem-field layui-field-title">\n    <legend i18n=\'arguments\'>\u53C2\u6570</legend>\n  </fieldset>\n  <div class="layui-form-item">\n    <label class="layui-form-label" >deviceMac:</label>\n    <div class="layui-input-inline">\n      <input type="text" name="deviceMac"  placeholder="CC:1B:E0:E0:10:C1" value="' + (_globalData2.default.saved.deviceMac ? _globalData2.default.saved.deviceMac : '') + '" lay-verify=\'deviceMac\'  class="layui-input">\n    </div>\n    <div class="layui-form-mid layui-word-aux" i18n=\'required\'>(\u5FC5\u586B)</div>\n  </div>\n   <div class="layui-form-item">\n    <label class="layui-form-label" style="width:auto">handle & value</label>\n    <div class="layui-form-mid layui-word-aux" i18n=\'required\'>(\u5FC5\u586B)</div>\n    <div class="">\n    <textarea placeholder="25:55AA101E\n27:55AA00FF"  class="layui-textarea" lay-verify="valueHandleArr">' + (_globalData2.default.saved.commond ? _globalData2.default.saved.commond : '') + '</textarea>\n    </div>\n  </div>\n\n<fieldset class="layui-elem-field layui-field-title">\n  <legend i18n=\'description\'>\u63CF\u8FF0</legend>\n</fieldset>\n<div class="layui-form-item layui-form-text">\n  <div class="descriptors connect-des">\n    <p><b>\u63A5\u53E3URL\uFF1A</b>\u8C03\u7528\u63A5\u53E3\u540E\uFF0C\u6B64URL\u4F1A\u81EA\u52A8\u751F\u6210\u5728\u4E0B\u9762\u7684\u201DAPI\u63A5\u53E3\u201D\u7684\u7A97\u53E3\u4E2D\u3002</p>\n    <p><b>\u63A5\u53E3\u63CF\u8FF0\uFF1A</b>\u672C\u63A5\u53E3\u662F\u8D1F\u8D23\u4E0E\u8BBE\u5907\u901A\u8BAF\u7684\u4E3B\u8981\u63A5\u53E3\uFF0C\u5177\u4F53\u8D1F\u8D23\u5411\u84DD\u7259\u8BBE\u5907\u5199\u5165\u6307\u4EE4\u4EE5\u53CA\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\uFF0C\u4E0B\u9762\u4F1A\u5177\u4F53\u8BB2\u89E3\u4E24\u4E2A\u529F\u80FD\u5206\u522B\u5982\u4F55\u5B9E\u73B0\u3002</p>\n    <p><b>1\u3001\u5BF9\u84DD\u7259\u8BBE\u5907\u5199\u5165\u6307\u4EE4\uFF1A</b>\u5F53\u9700\u8981\u5F80\u84DD\u7259\u8BBE\u5907\u6307\u5B9A\u7684characteristic\u5199\u5165\u6307\u4EE4\u65F6\uFF0C\u5148\u8C03\u7528\u201C\u53D1\u73B0\u670D\u52A1\u201D\u7684\u63A5\u53E3\uFF0C\u5F53\u8FD4\u56DE\u84DD\u7259\u8BBE\u5907\u670D\u52A1\u4FE1\u606F\u7684\u6811\u5F62\u5217\u8868\u540E\uFF0C\u5BFB\u627E\u6307\u5B9A\u7684characteristic\u6240\u5BF9\u5E94\u7684valueHandle\uFF08characteristic\u5185\u5305\u542Bhandle\u3001valueHandle\u3001properties\u3001descriptors\u7B49\u5C5E\u6027\uFF09\uFF0C\u7136\u540E\u8C03\u7528\u6B64\u63A5\u53E3\u65F6\uFF0Chandle\u5BF9\u5E94\u7684\u503C\u662Fcharacteristic\u7684valueHandle\uFF0Cvalue\u5BF9\u5E94\u7684\u503C\u662F\u9700\u8981\u5199\u5165\u7684\u6307\u4EE4\u5185\u5BB9\uFF08\u5C06\u6307\u4EE4\u7684\u6BCF\u4E2Abyte\u987A\u5E8F\u62FC\u5728\u4E00\u8D77\u5199\u6210\u4E00\u4E2A\u5B57\u7B26\u4E32\uFF09\u3002</p>\n    <p><b>2\u3001\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification/indication\uFF1A</b>\u5F53\u9700\u8981\u63A5\u6536\u84DD\u7259\u8BBE\u5907\u53D1\u6765\u7684\u6570\u636E\u65F6\uFF0C\u9700\u8981\u5148\u6253\u5F00\u84DD\u7259\u8BBE\u5907\u7684notification\u6216\u8005indication\uFF08\u6253\u5F00\u7684\u8FC7\u7A0B\u5728\u672C\u8D28\u4E0A\u4E5F\u662F\u5BF9\u84DD\u7259\u8BBE\u5907\u4E0B\u53D1\u7684\u4E00\u4E2A\u6307\u4EE4\uFF09\uFF0C\u5F53\u9700\u8981\u6253\u5F00\u6307\u5B9Acharacteristic\u7684notification\u6216\u8005indication\u65F6\uFF0C\u4E5F\u662F\u5148\u8C03\u7528\u201C\u53D1\u73B0\u670D\u52A1\u201D\u7684\u65B9\u6CD5\uFF0C\u627E\u5230\u6307\u5B9A\u7684characteristic\u6240\u5BF9\u5E94\u7684descriptors\uFF0C\u6253\u5F00descriptors\uFF0C\u627E\u5230uuid\u5305\u542B\u201C00002902\u201D\u6240\u5BF9\u5E94\u7684handle\uFF0C\u7136\u540E\u8C03\u7528\u6B64\u63A5\u53E3\uFF0C\u63A5\u53E3\u4E2D\u7684handle\u5C31\u662F\u4E0A\u9762descriptor\u7684handle\uFF0C\u5982\u679C\u662F\u6253\u5F00notification\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0100\u201D\uFF0C\u5982\u679C\u662F\u6253\u5F00indication\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0200\u201D\uFF0C\u5982\u679C\u662F\u5173\u95EDnotification/indication\uFF0Cvalue\u5BF9\u5E94\u7684\u662F\u201C0000\u201D\u3002</p>\n    <p><b>\u53C2\u6570\u89E3\u91CA\uFF1A deviceMac\uFF1A</b>\u8981\u5199\u5165\u6307\u4EE4\u7684\u8BBE\u5907\u7684MAC\u5730\u5740\u3002</p>\n    <p><b>handle\uFF1A</b>\u901A\u8FC7\u201C\u53D1\u73B0\u670D\u52A1\u63A5\u53E3\u201D\u6240\u627E\u5230\u7684characteristic\u6240\u5BF9\u5E94\u7684valueHandle\u6216\u8005handle\u3002</p>\n    <p><b>value\uFF1A</b>\u8981\u5199\u5165\u7684\u6307\u4EE4\u7684\u503C\uFF0C\u6216\u8005\u201C0100\u201D\uFF08\u6253\u5F00notification\uFF09\u3001\u201C0200\u201D\uFF08\u6253\u5F00indication\uFF09\u3001\u201C0000\u201D\uFF08\u5173\u95EDnotification\u548Cindication\uFF09\u3002</p>\n    <p><b>handle & value\u8F93\u5165\u683C\u5F0F</b>\n    <p>\u5355\u6761\u6307\u4EE4\u683C\u5F0F handle:value1,type</p>\n    <p>handle\u4E3A\u8981\u5199\u5165\u7684handle\u598220</p>\n    <p>value1 \u4E3A\u8981\u5199\u5165\u7684\u503C\uFF08\u5341\u516D\u8FDB\u5236\uFF09</p>\n    <p>type\u4E3A\u5199\u5165\u7C7B\u578B\uFF0C0\u4EE3\u8868write without response\uFF0C1\u4EE3\u8868write with response</p>\n    <p>\u591A\u6761\u8BED\u53E5\u4E4B\u95F4\u7528\u56DE\u8F66\u952E\u6362\u884C</p>\n  </div>\n</div>\n<div class="layui-form-item">\n  <div class="layui-input-block">\n    <button class="layui-btn" lay-submit lay-filter="write">do</button>\n  </div>\n</div>\n</form>';
 	  return temp;
 	}
 	
@@ -4117,7 +4120,8 @@
 	
 	    var cn = {
 	        '_lang': 'cn',
-	        'title': 'cassia 蓝牙调试工具',
+	        'lang': '语言',
+	        'title': 'Cassia 蓝牙调试工具',
 	        'header': 'cassia 蓝牙调试工具',
 	        'reboot': '重启',
 	        'allApi': '总览API',
@@ -4142,13 +4146,17 @@
 	        'disService': '发现服务',
 	        'getMsg': '接收设备信息',
 	        'deviceConStateChange': '设备连接转态变化',
-	        'auguments': '参数',
-	        'optional': '选填',
-	        'required': '必填',
-	        'description': '描述'
+	        'arguments': '参数',
+	        'optional': '(选填)',
+	        'required': '(必填)',
+	        'description': '描述',
+	        'hubNotifyStatus': 'Hub通知状态',
+	        'method': '方法名',
+	        'addMore': '加载更多'
 	    },
 	        en = {
 	        '_lang': 'en',
+	        'lang': 'Language',
 	        'title': 'Cassia Blooth Dev Tools',
 	        'header': 'Cassia Blooth Dev Tools',
 	        'reboot': 'Reboot',
@@ -4174,11 +4182,13 @@
 	        'disService': 'Discover Services',
 	        'getMsg': 'Devices\'s Messages',
 	        'deviceConStateChange': 'Devices Connection State Changes',
-	        'auguments': 'Parameter',
-	        'optional': 'Optiona',
-	        'required': 'Required',
-	        'description': 'Description'
-	
+	        'arguments': 'Parameter',
+	        'optional': '(optional)',
+	        'required': '(Required)',
+	        'description': 'Description',
+	        'hubNotifyStatus': 'Hub Notify Status',
+	        'method': 'Method',
+	        'addMore': 'Add More'
 	    },
 	        lang = {},
 	        i18n = function i18n(k) {
@@ -4189,15 +4199,18 @@
 	        bl.match('cn') ? lang = cn : lang = en;
 	    };
 	
-	    try {
-	        var s = JSON.parse(localStorage.getItem('settings'));
-	        if (!s.language || s.language === 0) {
+	    if (!language) {
+	        try {
+	            var s = JSON.parse(localStorage.getItem('settings'));
+	            if (!s.language || s.language === 0) {
+	                auto();
+	            } else {
+	                s.language === 'cn' ? lang = cn : lang = en;
+	            }
+	        } catch (e) {
 	            auto();
-	        } else {
-	            s.language === 'cn' ? lang = cn : lang = en;
 	        }
-	    } catch (e) {
-	        auto();
+	        _globalData2.default.lang = lang._lang;
 	    }
 	
 	    i18n.format = function (str) {
@@ -4208,7 +4221,8 @@
 	        });
 	    };
 	
-	    i18n.render = function () {
+	    i18n.render = function (language) {
+	        console.error(language);
 	        if (language === 'cn') {
 	            lang = cn;
 	            _globalData2.default.lang = 'cn';
@@ -4217,8 +4231,10 @@
 	            _globalData2.default.lang = 'en';
 	        }
 	
-	        $('select option').removeAttr('checked');
-	        $('select').val(lang._lang);
+	        console.warn(_globalData2.default.lang);
+	
+	        $('#lang option').removeAttr('checked');
+	        $('#lang').val(_globalData2.default.lang);
 	
 	
 	        setTimeout(function () {
@@ -4229,18 +4245,22 @@
 	                t = a[i];
 	                if (t && t.getAttribute) {
 	                    s = t.getAttribute('i18n');
-	                    if (s && i18n(s) && !t.getAttribute('i18n-loaded')) {
+	                    console.log('#######', t.getAttribute('i18n-loaded') !== _globalData2.default.lang);
+	                    if (s && i18n(s) && t.getAttribute('i18n-loaded') !== _globalData2.default.lang) {
 	                        t.innerHTML = i18n(s);
+	                        t.setAttribute('i18n-loaded', _globalData2.default.lang);
 	                    }
 	                }
 	            }
-	        }, 10);
+	        }, 15);
 	    };
-	
-	    document.body.addEventListener('DOMNodeInserted', function (e) {
+	    i18n.render(language);
+	    document.body.removeEventListener('DOMNodeInserted', function () {
 	        i18n.render();
-	    });
-	    return i18n;
+	    }, false);
+	    document.body.addEventListener('DOMNodeInserted', function () {
+	        i18n.render();
+	    }, false);
 	};
 	
 	exports.default = i18n;

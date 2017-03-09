@@ -4,7 +4,7 @@ function htmlString() {
     <label class="layui-form-label">Get connected devices as list：GET</label>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>描述</legend>
+    <legend i18n='arguments'>描述</legend>
   </fieldset>
   <div class="layui-form-item layui-form-text">
     <div class="descriptors connect-des">

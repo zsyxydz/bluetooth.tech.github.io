@@ -1,7 +1,7 @@
 function tip(layer, htmlString, $dom, dos, form) {
 	layer.open({
 		type: 4,
-		area: ['313px', 'auto'],
+		area: ['400px', 'auto'],
 		// shade: 0,
 		closeBtn: 0,
 		shadeClose: true,

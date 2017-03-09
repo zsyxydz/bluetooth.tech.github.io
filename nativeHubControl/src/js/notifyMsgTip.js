@@ -7,16 +7,16 @@ function htmlString() {
     <label class="layui-form-label">Receive indication &amp; notification：GET/SSE</label>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>Hub通知状态</legend>
+    <legend i18n ='hubNotifyStatus'>Hub通知状态</legend>
   </fieldset>
   <div class="layui-form-item">
     <div class="layui-inline">
-		<label class="layui-form-label" style="width:auto">打开通知</label>
+		<label class="layui-form-label" style="width:auto" i18n='openHubNotify'>打开Hub通知</label>
 		<input type="checkbox" lay-skin="switch" lay-filter="switchNotifyMsg1" title="打开通知" ${globalData.neverSave.notifySSE.status.indexOf('pen')!== -1 ? 'checked' :''}>
 	</div>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>描述</legend>
+    <legend i18n='description'>描述</legend>
   </fieldset>
   <div class="layui-form-item layui-form-text">
     <div class="descriptors connect-des">
