@@ -1,12 +1,15 @@
+import i18n from  './i18n'
+import globalData from './globalData'
+
 let methodNames = {
-    scan: '扫描设备',
-    connectDevice: '连接设备',
-    getConnectList: '已连接备',
-    getAllServices: '发现服务',
-    notify: '接收设备信息',
-    getConnectState: '设备连接状态变化',
-    writeByHandle: '写入指令',
-    disconnectDevice: '断开连接'
+    scan: 'scanDevice',
+    connectDevice: 'connDevice',
+    getConnectList: 'connedDevice',
+    getAllServices: 'disService',
+    notify: 'getMsg',
+    getConnectState: 'deviceConStateChange',
+    writeByHandle: 'writeCom',
+    disconnectDevice: 'disCon'
 }
 
 let methodConfig = {
@@ -58,11 +61,12 @@ function showMethod(method) {
         _type = methodConfig[method].type,
         _url = methodConfig[method].url,
         oLi = `<li>
-					<p><span>方法名</span><span>${_methodName}</span><span>${_type}</span></p>
+					<p><span i18n='method'>方法名</span><span i18n='${_methodName}'></span><span>${_type}</span></p>
 					<p><em>URL:</em>${_url}</p>
-				</li>`
+			    </li>`
     $showMethods.append(oLi);
-
+    
+    i18n(globalData.lang)
 
 
 }

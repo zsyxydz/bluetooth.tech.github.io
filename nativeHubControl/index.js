@@ -4,13 +4,16 @@ import scan from './src/js/scan'
 import notifyStateAndFill from './src/js/notifyStateAndFill'
 import notifyMsg from './src/js/notifyMsgAndFill'
 import globalData from './src/js/globalData'
+import i18n from  './src/js/i18n'
+
 import {
 	api
 } from './src/js/api'
 
 import urlArr from './src/js/urlconfig'
 
-;
+
+i18n();
 (function () {
 	$('#hubIp').val(globalData.saved.hubIp).triggerHandler('blur')
 	$('#hubMac').val(globalData.saved.hubMac).triggerHandler('blur')
@@ -29,6 +32,9 @@ layui.use(['layer', 'form'], function () {
 
 
 	});
+	form.on('select(lang)',function(data){
+		i18n(data.value)
+	})
 	form.on('switch(switchScan)', function (data) {
 		if (data.elem.checked) {
 			console.log(globalData.saved)

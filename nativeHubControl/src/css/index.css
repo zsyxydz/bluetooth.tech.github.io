@@ -5,7 +5,16 @@ body {
 	padding-left: 10px;
 	padding-right: 10px;
 }
-
+.fr{
+	float: right;
+}
+.reboot{
+	margin-left: 20px;
+}
+.lang{
+	width:100px;
+	
+}
 .layui-elem-field legend {
 	text-align: center;
 	font-size: 1.5rem;
@@ -272,6 +281,10 @@ pre{
 	width:65px;
 	padding-left: 0;
 	font-size: .8rem;
+}
+.tip .layui-form-item .layui-input-block{
+	text-align: center;
+	margin-left: 0
 }
 
 

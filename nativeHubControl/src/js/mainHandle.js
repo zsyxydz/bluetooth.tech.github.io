@@ -21,7 +21,8 @@ import notifyMsgTip from './notifyMsgTip'
 import notifyStateTip from './notifyStateTip'
 import disconnectTip from './disconnectTip'
 import writeByHnadleTip from './writeByHandleTip.js'
-
+import globalData from './globalData'
+import i18n from './i18n'
 
 /**
  * { 左侧八个按钮动作  }
@@ -86,6 +87,7 @@ function mainHandle(layer, form) {
                     break
                 }
         }
+        i18n(globalData.lang)
     })
 }
 

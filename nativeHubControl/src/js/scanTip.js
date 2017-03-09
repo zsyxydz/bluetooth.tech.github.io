@@ -7,17 +7,17 @@ function htmlString() {
     <label class="layui-form-label">Scan：GET/SSE</label>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>参数</legend>
+    <legend i18n = 'arguments'>参数</legend>
   </fieldset>
   <div class="layui-form-item">
     <label class="layui-form-label">chip:</label>
     <div class="layui-input-inline">
       <input type="text" name="chip"  value=${globalData.saved.chip!=='' ? globalData.saved.chip:'0'} placeholder="0或者1" lay-verify='zeroOrOne'  class="layui-input">
     </div>
-     <div class="layui-form-mid layui-word-aux">(选填)</div>
+     <div class="layui-form-mid layui-word-aux" i18n='optional'>(选填)</div>
   </div>
   <fieldset class="layui-elem-field layui-field-title">
-    <legend>描述</legend>
+    <legend i18n='description'>描述</legend>
   </fieldset>
   <div class="layui-form-item layui-form-text">
     <div class="descriptors scan-des">
