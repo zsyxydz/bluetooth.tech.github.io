@@ -3,6 +3,13 @@ import {
     updateUrlArr,
     data
 }from './urlconfig'
+import {
+    methodConfig,
+    showMethod
+} from './showmethod'
+import {
+	showLog
+} from './showlog'
 function control(val,form){
 	if(val == "local"){
 		data.access_token = '';
@@ -21,7 +28,7 @@ function control(val,form){
 		  	anim: 5, //0-6的动画形式，-1不开启
 		  	tips: [2, '#2F4056'],
 		  	content:htmlString(),
-		  	btn: ['确定','取消'],
+		  	btn: ['ok','cancel'],
 		  	btn1: yes,
 		  	btn2:function(index, layero){
 		  		$('#control').val('local')
@@ -40,25 +47,25 @@ function control(val,form){
 var htmlString = function() {
   let temp = `<form class="layui-form  tip" action="#">
   <fieldset class="layui-elem-field layui-field-title">
-		<legend>oAuth认证</legend>
+		<legend>oAuth</legend>
   </fieldset>
 		<div class="layui-form-item" style="text-align:center">
-		  <label class="layui-form-label">用户名:</label>
+		  <label class="layui-form-label " i18n = 'username'>用户名:</label>
 		  <div class="layui-input-inline">
-		    <input type="text"  placeholder="用户名" class="layui-input" id="userName">
+		    <input type="text"   class="layui-input" id="userName">
 		  </div>
 		   
 		</div>
 		<div class="layui-form-item">
-		  <label class="layui-form-label">密码:</label>
+		  <label class="layui-form-label" i18n = 'password'>密码:</label>
 		  <div class="layui-input-inline">
-		    <input type="password"  placeholder="密码"  class="layui-input" id="password">
+		    <input type="password"    class="layui-input" id="password">
 		  </div>
   		</div>
 		<div class="layui-form-item">
-		  <label class="layui-form-label">Host:</label>
+		  <label class="layui-form-label" i18n = 'host'>云服务器:</label>
 		  <div class="layui-input-inline">
-		    <input type="text"  placeholder="Host"  class="layui-input" id="host">
+		    <input type="text" class="layui-input" id="host">
 		  </div>
   		</div>
   <fieldset class="layui-elem-field layui-field-title">
@@ -83,6 +90,8 @@ var yes = function(){
 			layer.msg('输入不能为空', {icon:5,title:'oAuth2',time:1000});
 		return
 	}
+	methodConfig.oAuth.url = "http://"+$('#host').val()+"/oauth2/token";
+	var parentoAuth = $('#oAuthLog ul');
 	$.ajax({
 			 type: 'POST',
 			 url: "http://"+$('#host').val()+"/oauth2/token",
@@ -101,11 +110,20 @@ var yes = function(){
 			   }else{
 			   		layer.msg('失败', {icon: 2,title:'oAuth2',time: 1000});
 			   }
+			   showLog(parentoAuth, {
+				message: JSON.stringify(d),
+				class: 'success'
+		})
 			},
 			error: function(e) { 
 				layer.msg('失败', {icon: 2,title:'oAuth2',time: 1000});
+				showLog(parentoAuth, {
+					message: JSON.stringify(e),
+					class: 'fail'
+				})
 			} 
 	});
+	showMethod('oAuth')
 }
 export {
     control

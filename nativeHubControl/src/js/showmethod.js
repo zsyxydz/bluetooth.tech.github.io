@@ -9,7 +9,8 @@ let methodNames = {
     notify: 'getMsg',
     getConnectState: 'deviceConStateChange',
     writeByHandle: 'writeCom',
-    disconnectDevice: 'disCon'
+    disconnectDevice: 'disCon',
+    oAuth:'oAuth'
 }
 
 let methodConfig = {
@@ -51,6 +52,11 @@ let methodConfig = {
     writeByHandle:{
         type:'GET',
         methodName:methodNames.writeByHandle,
+        url:''
+    },
+    oAuth:{
+        type:'POST',
+        methodName:methodNames.oAuth,
         url:''
     }
 }

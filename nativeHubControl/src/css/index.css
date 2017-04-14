@@ -180,6 +180,9 @@ body {
 	height: 172px;
 	overflow: auto;
 }
+.log .right .layui-tab-title>li{
+	font-size: 12px
+}
 .log .right .layui-tab-content ul li:nth-child(2n),
 .box .l4 li:nth-child(2n)
 {

@@ -37,7 +37,7 @@ layui.use(['layer', 'form'], function () {
 		)
 	});
 	form.on('select(control)',function(data){
-
+		
 		control(data.value,form);
 		
 	})

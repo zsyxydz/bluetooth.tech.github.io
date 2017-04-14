@@ -39,7 +39,10 @@ const i18n = function (language,cb) {
             'description': '描述',
             'hubNotifyStatus': 'Hub通知状态',
             'method': '方法名',
-            'addMore': '加载更多'
+            'addMore': '加载更多',
+            'username':'用户名:',
+            'password':'密码:',
+            'host':'云服务器:'
         },
         en = {
             'control':'control',
@@ -78,7 +81,11 @@ const i18n = function (language,cb) {
             'description': 'Description',
             'hubNotifyStatus': 'Hub Notify Status',
             'method': 'Method',
-            'addMore': 'Add More'
+            'addMore': 'Add More',
+            'username':'username:',
+            'password':'password:',
+            'host':'HOST:'
+
         },
         lang = {},
         i18n = function (k) {
