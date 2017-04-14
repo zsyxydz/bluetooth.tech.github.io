@@ -10,7 +10,9 @@ import {
 import {
 	showLog
 } from './showlog'
-import urlArr from './urlconfig'
+import {
+    urlArr  
+}from './urlconfig'
 import formatServicesData from './formatServicesData'
 
 const hasGetServices = {}

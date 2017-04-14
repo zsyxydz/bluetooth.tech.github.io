@@ -10,7 +10,9 @@ import {
 import {
 	htmlTemp
 } from './getConnectList'
-import urlArr from './urlconfig'
+import {
+    urlArr  
+}from './urlconfig'
 import globalData from './globalData'
 
 
@@ -25,13 +27,15 @@ notifyStateAndFill.start = function() {
 		$parent = $('#connectState ul')
 	let data = ''
 	ajaxResult.addEventListener('message', function(e) {
+		//
 		// debugger
 		// console.log('connectState:', e)
 		showLog($parent, {
 			message: e.data
 		})
-		if (e.data !== "keep-alive") {
+		if (!e.data.match("keep-alive")) {
 			// debugger
+			//console.log(typeof e.data +"notifystateandfill"+e.data)
 			data = JSON.parse(e.data)
 			stateNotifyHandle(data)
 				// console.log('notify:',e)

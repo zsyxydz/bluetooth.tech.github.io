@@ -47,7 +47,7 @@ function start(url, data, scanSSE, cb) {
         var flow = layui.flow,
             num = 10
         es.addEventListener('message', function(e) {
-            if (e.data !== "keep-alive") {
+            if (!e.data.match("keep-alive")) {
                 globalData.neverSave.scanData.push(e.data)
                     // console.log(new Date(), globalData.neverSave.scanData.length)
                     // let time = new Date()
@@ -108,7 +108,8 @@ function getConnectList(url) {
     methodConfig.getConnectList.url = url
     return $.ajax({
         url: url,
-        type: 'GET'
+        type: 'GET',
+        dataType:'json'
     })
 }
 
@@ -142,7 +143,8 @@ function getAllServices(url) {
     methodConfig.getAllServices.url = url
     return $.ajax({
         url: url,
-        type: 'GET'
+        type: 'GET',
+        dataType:'json'
     })
 }
 

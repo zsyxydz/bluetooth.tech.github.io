@@ -8,7 +8,9 @@ import globalData from './globalData'
 import {
     showMethod
 } from './showmethod'
-import urlArr from './urlconfig'
+import {
+    urlArr
+}from './urlconfig'
 const scan = {
         start: scanHandle,
         stop

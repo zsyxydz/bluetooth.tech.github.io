@@ -37,8 +37,9 @@ function mainHandle(layer, form) {
         let targetId = e.target.id;
         switch (targetId) {
             case 'bscan':
-                {
-                    scanTip(layer, form, e.target)
+                {   
+                    scanTip(layer, form, e.target) 
+
                     break
                 }
             case 'bConnect':
@@ -88,6 +89,7 @@ function mainHandle(layer, form) {
                 }
         }
         i18n(globalData.lang)
+       form.render(); 
     })
 }
 

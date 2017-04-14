@@ -69,6 +69,7 @@ function showMethod(method) {
     i18n(globalData.lang)
 
 
+
 }
 
 

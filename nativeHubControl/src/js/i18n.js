@@ -1,8 +1,11 @@
 import globalData from './globalData'
 
-const i18n = function (language) {
+const i18n = function (language,cb) {
     var cn = {
             //--common--//
+            'control':'控制',
+            'local':'本地',
+            'remote':'远程',
             '_lang': 'cn',
             'lang': '语言',
             'title': 'Cassia 蓝牙调试工具',
@@ -39,6 +42,9 @@ const i18n = function (language) {
             'addMore': '加载更多'
         },
         en = {
+            'control':'control',
+            'local':'local',
+            'remote':'remote',
             '_lang': 'en',
             'lang': 'Language',
             'title': 'Cassia Blooth Dev Tools',
@@ -122,6 +128,7 @@ const i18n = function (language) {
                     }
                 }
             }
+            cb&&cb()
         }, 15);
     };
     i18n.render();

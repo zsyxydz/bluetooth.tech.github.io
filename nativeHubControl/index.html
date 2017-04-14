@@ -32,6 +32,7 @@
 			<button class="layui-btn layui-btn-primary reboot" i18n = 'reboot' id="reboot">重启</button>
 			<button lay-filter='submit' id='verify' hidden lay-submit>submit</button>
 		</div>
+
 		<div class="layui-inline fr">
 			<label class="layui-form-label" i18n='lang'>Language</label>
 			<div class="layui-input-inline lang">
@@ -45,6 +46,15 @@
 				</select>
       		</div>
 		</div>
+		<div class="layui-inline fr">
+			<label class="layui-form-label" i18n='control'>控制</label>
+			<div class="layui-input-inline lang">
+				<select name="control" lay-filter='control' id="control">
+					<option value="local" i18n='local' >本地</option>
+					<option value="remote" i18n='remote'>远程</option>
+				</select>
+      		</div>
+      	</div>
 	</div>
 	<div class="box">
 		<div class="l1">

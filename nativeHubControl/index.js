@@ -5,12 +5,16 @@ import notifyStateAndFill from './src/js/notifyStateAndFill'
 import notifyMsg from './src/js/notifyMsgAndFill'
 import globalData from './src/js/globalData'
 import i18n from  './src/js/i18n'
-
+import {control} from './src/js/oAuth2'
 import {
 	api
 } from './src/js/api'
 
-import urlArr from './src/js/urlconfig'
+import {
+	urlArr,
+	updateUrlArr
+} from './src/js/urlconfig'
+
 
 
 i18n();
@@ -20,6 +24,8 @@ i18n();
 }())
 
 layui.use(['layer', 'form'], function () {
+	
+	// form.render()
 	var layer = layui.layer,
 		form = layui.form()
 	$('#reboot').click(function () {
@@ -29,11 +35,15 @@ layui.use(['layer', 'form'], function () {
 				time: 5 * 1000
 			})
 		)
-
-
 	});
+	form.on('select(control)',function(data){
+
+		control(data.value,form);
+		
+	})
 	form.on('select(lang)',function(data){
-		i18n(data.value)
+		i18n(data.value,form.render)
+		// setTimeout(form.render,500)
 	})
 	form.on('switch(switchScan)', function (data) {
 		if (data.elem.checked) {
@@ -93,306 +103,3 @@ layui.use(['element'], function () {
 	// element.tabChange('log', 1);
 })
 
-
-
-// let datad = [{ //节点
-// 	name: 'Serivices',
-// 	children: [{
-// 		name: "uuid:00001800-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:1'
-// 		}, {
-// 			name: 'endHandle:3'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a00-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:2'
-// 					}, {
-// 						name: 'properites:10'
-// 					}, {
-// 						name: 'valueHandle:3'
-// 					}, {
-// 						name: 'descriptors'
-
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000180f-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:4'
-// 		}, {
-// 			name: 'endHandle:7'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a19-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:5'
-// 					}, {
-// 						name: 'properites:18'
-// 					}, {
-// 						name: 'valueHandle:6'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:7'
-// 						}]
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000ff00-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:8'
-// 		}, {
-// 			name: 'endHandle:65535'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:0000ff01-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:9'
-// 					}, {
-// 						name: 'properites:16'
-// 					}, {
-// 						name: 'valueHandle:10'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:11'
-// 						}]
-// 					}]
-// 				}, {
-// 					name: 'uuid:0000ff02-0000-1000-8000-00805f9b34fb',
-// 					children: [{
-// 						name: 'handle:12'
-// 					}, {
-// 						name: 'valueHandle:13'
-// 					}, {
-// 						name: 'properites:4'
-// 					}, {
-// 						name: 'descriptors'
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}]
-// }, { //节点
-// 	name: 'Serivices',
-// 	children: [{
-// 		name: "uuid:00001800-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:1'
-// 		}, {
-// 			name: 'endHandle:3'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a00-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:2'
-// 					}, {
-// 						name: 'properites:10'
-// 					}, {
-// 						name: 'valueHandle:3'
-// 					}, {
-// 						name: 'descriptors'
-
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000180f-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:4'
-// 		}, {
-// 			name: 'endHandle:7'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a19-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:5'
-// 					}, {
-// 						name: 'properites:18'
-// 					}, {
-// 						name: 'valueHandle:6'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:7'
-// 						}]
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000ff00-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:8'
-// 		}, {
-// 			name: 'endHandle:65535'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:0000ff01-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:9'
-// 					}, {
-// 						name: 'properites:16'
-// 					}, {
-// 						name: 'valueHandle:10'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:11'
-// 						}]
-// 					}]
-// 				}, {
-// 					name: 'uuid:0000ff02-0000-1000-8000-00805f9b34fb',
-// 					children: [{
-// 						name: 'handle:12'
-// 					}, {
-// 						name: 'valueHandle:13'
-// 					}, {
-// 						name: 'properites:4'
-// 					}, {
-// 						name: 'descriptors'
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}]
-// }, { //节点
-// 	name: 'Serivices',
-// 	children: [{
-// 		name: "uuid:00001800-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:1'
-// 		}, {
-// 			name: 'endHandle:3'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a00-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:2'
-// 					}, {
-// 						name: 'properites:10'
-// 					}, {
-// 						name: 'valueHandle:3'
-// 					}, {
-// 						name: 'descriptors'
-
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000180f-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:4'
-// 		}, {
-// 			name: 'endHandle:7'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:00002a19-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:5'
-// 					}, {
-// 						name: 'properites:18'
-// 					}, {
-// 						name: 'valueHandle:6'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:7'
-// 						}]
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}, {
-// 		name: "uuid:0000ff00-0000-1000-8000-00805f9b34fb",
-// 		children: [{
-// 			name: 'startHandle:8'
-// 		}, {
-// 			name: 'endHandle:65535'
-// 		}, {
-// 			name: 'primary:true'
-// 		}, {
-// 			name: 'characteristics',
-// 			children: [{
-// 					name: "uuid:0000ff01-0000-1000-8000-00805f9b34fb",
-// 					children: [{
-// 						name: 'handle:9'
-// 					}, {
-// 						name: 'properites:16'
-// 					}, {
-// 						name: 'valueHandle:10'
-// 					}, {
-// 						name: 'descriptors',
-// 						children: [{
-// 							name: "uuid:00002902-0000-1000-8000-00805f9b34fb"
-// 						}, {
-// 							name: 'handle:11'
-// 						}]
-// 					}]
-// 				}, {
-// 					name: 'uuid:0000ff02-0000-1000-8000-00805f9b34fb',
-// 					children: [{
-// 						name: 'handle:12'
-// 					}, {
-// 						name: 'valueHandle:13'
-// 					}, {
-// 						name: 'properites:4'
-// 					}, {
-// 						name: 'descriptors'
-// 					}]
-// 				}
-
-// 			]
-// 		}]
-// 	}]
-// }]

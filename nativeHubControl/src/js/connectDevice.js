@@ -1,7 +1,9 @@
 import {
 	api
 } from './api'
-import urlArr from './urlconfig'
+import {
+    urlArr  
+}from './urlconfig'
 import {
 	showMethod
 } from './showmethod'

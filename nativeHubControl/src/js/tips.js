@@ -1,4 +1,5 @@
 function tip(layer, htmlString, $dom, dos, form) {
+	
 	layer.open({
 		type: 4,
 		area: ['400px', 'auto'],

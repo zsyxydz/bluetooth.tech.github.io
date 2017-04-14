@@ -128,6 +128,7 @@ function formatServicesData(data,deviceMac) {
 			})
 		})
 	}
+	//console.log(typeof data)
 	data.services.forEach(function(s) {
 			nodes.push(s)
 			s.children = []

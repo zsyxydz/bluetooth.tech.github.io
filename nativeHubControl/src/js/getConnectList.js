@@ -7,7 +7,9 @@ import {
 import {
 	showLog
 } from './showlog'
-import urlArr from './urlconfig'
+import {
+    urlArr  
+}from './urlconfig'
 
 
 function htmlTemp(mac, name) {
@@ -48,6 +50,7 @@ function getConnectListAndFiil() {
 		ajaxResult = api.getConnectList(urlArr.getConnectedDeviceList)
 	showMethod('getConnectList')
 	ajaxResult.done(function(e) {
+		console.log(typeof e)
 		let temp = '',
 			mac,
 			name
