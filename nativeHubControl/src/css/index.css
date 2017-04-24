@@ -313,3 +313,7 @@ pre{
 .tip.connect-tip .layui-inline{
 	color: #000;
 }
+
+.short-label{
+	width: 67px;
+}
