@@ -1180,7 +1180,7 @@ p{
 <h3 id="21apipip32"><a name="user-content-21apipip32" href="#21apipip32" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.1、怎么进入到AP的配置页面(需要IP地址，如何获取IP地址请看3.2)？</h3>
 <p>将PC与AP放在同一局域网内，在PC的浏览器中输入AP的IP地址就可以进入AP的配置页面了(如：192.168.0.153，配图见2.2)</p>
 <h3 id="22"><a name="user-content-22" href="#22" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.2、如何操作配置页面？</h3>
-<p><img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/control.png" /><br />
+<p><img alt="配置页面图" src="./images/control.png" /><br />
  如上图所(该图AP连接了WiFi)</p>
 <h4 id="networks-configuration"><a name="user-content-networks-configuration" href="#networks-configuration" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>Networks Configuration (网络配置)：</h4>
 <p><strong>3G/4G：</strong>配置3G/4G网络(如果AP将通过3G / 4G访问互联网，则需要USB dongle)，此选项不需要配置，将我们支持的dongle型号插在USB接口处即可实现自动上网（目前大陆支持中兴MF823 Hilink版）。</p>
@@ -1197,10 +1197,10 @@ p{
 <h3 id="25"><a name="user-content-25" href="#25" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.5、怎么连接到以太网？</h3>
 <p>通过以太网线直接连接到AP的网口，AP将会自动接入接入互联网，AP的IP地址默认通过DHCP方式获取。<br />
  可以在AP配置页面将IP配置为静态的(如下图)：<br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/wired.png" /><br />
+<img alt="配置页面图" src="./images/wired.png" /><br />
  在IP栏你要设置的静态IP,配置完成后，AP将会一直使用该IP地址;<br />
  MASK、GATEWAY、DNS，可以在同网段的PC命令行输入 ipconfig得到网段信息:<br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/ipconfig.png" /></p>
+<img alt="配置页面图" src="./images/ipconfig.png" /></p>
 <h3 id="26wifi"><a name="user-content-26wifi" href="#26wifi" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.6、怎么连接到WiFi？</h3>
 <p>插上网线连接以太网。通过IP地址进入AP的配置页面，在Wireless处配置你想要链接的WIfI,配置完成后拔掉网线重AP，再通电会自动连接WiFi.</p>
 <h3 id="27"><a name="user-content-27" href="#27" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>2.7、连接成功有什么提示吗？</h3>
@@ -1216,7 +1216,7 @@ p{
 <p>弹出action err说明配置保存失败，检查网络和AP的IP是否发生变化，然后重试</p>
 <h2 id="ap"><a name="user-content-ap" href="#ap" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>三、AP联网后有哪些控制方式？</h2>
 <h3 id="31"><a name="user-content-31" href="#31" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.1、本地控制</h3>
-<p><img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/localcontrol.png" /><br />
+<p><img alt="配置页面图" src="./images/localcontrol.png" /><br />
 <strong>我们通过http的方式访问AP上的http server 根据http路由 将http请求分配到不同接口，实现对蓝牙设备的控制</strong></p>
 <h3 id="32apip"><a name="user-content-32apip" href="#32apip" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.2、怎么得到AP的IP地址？</h3>
 <p><strong>本地所有控制都基于IP地址，因此，这是必须要了解的，目前有三种方式可以得到AP的IP地址：</strong></p>
@@ -1227,7 +1227,7 @@ p{
 <h3 id="33apip"><a name="user-content-33apip" href="#33apip" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.3、AP重启后IP地址会变吗？</h3>
 <p>因为IP是动态分配的，所以AP重启后，IP是有可能发生改变的。通过以太网连接可以在AP配置页面将IP设为静态的(设置静态见2.4)</p>
 <h3 id="34ac"><a name="user-content-34ac" href="#34ac" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.4、云端控制(需要AC):</h3>
-<p><img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/remotecontrol.png" /><br />
+<p><img alt="配置页面图" src="./images/remotecontrol.png" /><br />
 <strong>我们通过http的方式访问云端上的http server 根据http路由 将http请求分配到不同接口，再通过capwap的方式发送给AP，实现对蓝牙设备的控制。AC是什么 见3.6</strong></p>
 <h3 id="35"><a name="user-content-35" href="#35" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.5、云端控制和本地控制有什么区别？</h3>
 <p>1）云端控制多了oAuth认证，更加安全。</p>
@@ -1247,7 +1247,7 @@ p{
 <p>1）在cassia请求一个开发者账户</p>
 <p>2）访问AP的IP地址(例如：192.168.1.8)，进入AP的配置页面(见2.2)</p>
 <p>3）在远程部分配置您的开发者账户和云服务器地址（默认是api.cassianetworks.com）如下图:<br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/oAuthcontrol.png" /><p>
+<img alt="配置页面图" src="./images/oAuthcontrol.png" /><p>
  <p>4）http的post请求进行oAuth认证：</p>
  <p>例如你的用户名：tester  密码：10b83f9a2e823c47</p>
 <p>将 tester:10b83f9a2e823c47进行base64编码得到dgvzdgvyojewyjgzzjlhmmu4mjnjndc = 使用下面的HTTP请求进行身份验证：<br />
@@ -1273,10 +1273,10 @@ p{
 <p>是的。</p>
 <h3 id="310apmac"><a name="user-content-310apmac" href="#310apmac" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.10、AP的Mac地址在哪里？</h3>
 <p><strong>MAC地址在AP的底部 如下图 (例如：MAC: CC:1B:E0:E0:22:60)</strong></p>
-<p><img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/APMAC.png" /></p>
+<p><img alt="配置页面图" src="./images/APMAC.png" /></p>
 <h3 id="311"><a name="user-content-311" href="#311" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.11、怎么配置开发人员账户和云服务器地址？</h3>
 <p>在Remote control模块配置Developer(开发者账户)和Domain/IP(云服务器地址)，配置图见2.2配置完成后点击保存按钮，成功会提示action successful、失败会提示 action err<br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/actionSuccessful.png" /></p>
+<img alt="配置页面图" src="./images/actionSuccessful.png" /></p>
 <h3 id="312"><a name="user-content-312" href="#312" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>3.12、云服务器地址都有哪些？</h3>
 <p><strong>公有云：</strong></p>
  <p>api2.cassianetworks.com(国内正式服务器，不含港澳台地区)，</p>
@@ -1295,8 +1295,8 @@ p{
 <h3 id="43postmansse"><a name="user-content-43postmansse" href="#43postmansse" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.3、Postman怎么使用？(不能使用sse)</h3>
 <p><strong>Postma网页调试工具不仅可以调试简单的css、html、脚本等简单的网页基本信息，它还可以发送几乎所有类型的HTTP请求！ <br />
  页面信息元素,下图是获取链接设备列表的API:</strong><br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/postman1.png" /><br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/postman2.png" /><br />
+<img alt="配置页面图" src="./images/postman1.png" /><br />
+<img alt="配置页面图" src="./images/postman2.png" /><br />
 <strong>主要操作:</strong>
  <p>1）添加一个集合（Collections）:login </p>
  <p>2）在请求编辑区添加接口URL。 </p>
@@ -1309,7 +1309,7 @@ p{
  <p>8）导入：点击页面上的Import将本地Json文件导入至Postman</p>
 <h3 id="44post"><a name="user-content-44post" href="#44post" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>4.4、浏览器如何操作？(不能发送POST请求)</h3>
 <p><strong>将API中的ulr输入在浏览器的地址栏就会获得返回的原始数据，如下图是用本地控制的方式调用了扫描的接口返回的数据：</strong><br />
-<img alt="配置页面图" src="///C://Users/Administrator/Desktop/markdown/images/liulanqi.png" /></p>
+<img alt="配置页面图" src="./images/liulanqi.png" /></p>
 <h2 id="_3"><a name="user-content-_3" href="#_3" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>五、代码开发过程中遇到什么问题</h2>
 <h3 id="51api"><a name="user-content-51api" href="#51api" class="headeranchor-link" aria-hidden="true"><span class="headeranchor"></span></a>5.1、API支持哪些开发语言？</h3>
 <p>任何基于HTTP通信协议的编程语言都支持（例如C＃，Node.js，Java，iOS等）。</p>
