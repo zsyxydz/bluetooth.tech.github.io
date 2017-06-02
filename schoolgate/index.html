@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>出入校演示</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+	<style type="text/css">
+		.border{
+			border:2px #ccc solid;
+		}
+		.hub{
+			border-bottom: 2px solid #ccc;
+			padding-bottom: 15px;
+		}
+		.unstyled{
+			list-style: none;
+			padding: 0;
+		}
+		.content{
+			height: 480px;
+		}
+		.shouhuan{
+			overflow-y: auto;
+			height: 435px;
+		}
+		.status{
+			border-left: 2px solid #ccc;
+			height: 100%;
+		}
+		.status table tbody{
+			display:block;
+			height: 400px;
+			overflow-y:auto;
+		}
+		table thead, tbody tr {
+		    display:table;
+		    width:100%;
+		    table-layout:fixed;
+		}
+		table thead {
+		    width: calc( 100% - 1em )
+		}
+	</style>
+</head>
+<body>
+  <div class="container border">
+  	<div class="row">
+  	  <div class="col-md-2 col-md-offset-3">
+		<h3>出入校演示</h3>
+  	  </div>
+  	  <div class="col-md-1 col-md-offset-5">
+  	  <h3>
+		<button type="button" class="btn btn-success" id="start">开始工作</button>
+	  </h3>
+  	  </div>
+  	  <div class="col-md-1">
+  	  <h3>
+		<button type="button" class="btn btn-danger" id="end">关闭</button>
+	  </h3>
+  	  </div>
+
+  	</div>
+    <div class="row hub">
+      <div class="col-md-6 ">
+        <h4>校内路由器：</h4>
+        <ul class="unstyled hub-in">
+          <li>
+          	<div class="form-inline">
+	          <div class="form-group">
+			    <label for="##">路由器IP：</label>
+			    <input type="text" class="form-control"  placeholder="IP">
+			  </div>
+			  <button class="btn btn-success">添加</button>
+			  <button class="btn btn-info">修改</button>
+			  <button class="btn btn-danger">删除</button>
+			</div>
+          </li>
+        </ul>
+	  </div>
+
+	  <div class="col-md-6 ">
+	    <h4>校外路由器：</h4>
+	    <ul class="unstyled hub-out">
+	      <li>
+	        <div class="form-inline">
+		      <div class="form-group">
+			    <label for="##">路由器IP：</label>
+			    <input type="text" class="form-control"  placeholder="IP">
+			  </div>
+		      <button class="btn btn-success">添加</button>
+			  <button class="btn btn-info">修改</button>
+			  <button class="btn btn-danger">删除</button>
+			</div>
+	      </li>
+	    </ul>
+      </div>
+  </div>
+
+
+	<div class="row content">
+	  <div class="col-md-8">
+	  	<h4> 手环：</h4>
+	  	<ul class="unstyled shouhuan">
+	  	  <li>
+	        <div class="form-inline">
+	          <div class="form-group">
+			    <labelan1 for="">手环&姓名：</label>
+			    <input type="text" class="form-control" placeholder="手环Mac">
+			    <input type="text" class="form-control" placeholder="姓名">
+			  </div>
+			  <button class="btn btn-success">添加</button>
+			  <button class="btn btn-info">修改</button>
+			  <button class="btn btn-danger">删除</button>
+			</div>
+	  	  </li>
+	  	</ul>
+
+	  </div>
+	  <div class="col-md-4 status">
+		<h4 style="display: inline-block;">出入校详情：</h4>
+		<button class="btn btn-danger btn-sm" style="float: right;margin-top: 5px;">清空</button>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th>姓名</th>
+		      <th>出入校状态</th>
+		      <th>&nbsp;&nbsp;时间</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		<!--   <tr class="success"><td>梧桐</td><td>进入学校</td><td>20:22</td></tr>
+		<tr class="danger"><td>梧桐</td><td>离开学校</td><td>20:21</td></tr> -->
+		  </tbody>
+		</table>
+	  </div>
+	</div>
+  </div>
+</body>
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/Utils.js"></script>
+<script src="js/hub.js"></script>
+<script src="js/device.js"></script>
+<script src="js/api.js"></script>
+<script src="js/logs.js"></script>
+
+
+<script src="js/index.js"></script>
+</html>
