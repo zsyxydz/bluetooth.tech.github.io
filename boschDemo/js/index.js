@@ -263,7 +263,7 @@ Zepto(function ($) {
 			});
 			device.real[_mac].temperatureChart.setOption({
 				title: {
-					text: lang[lang.useLang].Humidity
+					text: lang[lang.useLang].Temperature
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
