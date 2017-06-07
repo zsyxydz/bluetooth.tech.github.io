@@ -33,7 +33,7 @@ Zepto(function ($) {
 			'Acoustic': '声感',
 			'Digitlight': '光照'
 		},
-		useLang: getCookie('useLang')||'en'
+		useLang: getCookie('useLang') || 'en'
 	}
 
 	let deviceDataInit = {
@@ -83,7 +83,7 @@ Zepto(function ($) {
 		} else {
 			lang.useLang = 'cn'
 		}
-		setCookie('useLang',lang.useLang,100)
+		setCookie('useLang', lang.useLang, 100)
 		location.reload()
 	})
 
@@ -121,10 +121,22 @@ Zepto(function ($) {
 		}
 		return str
 	}
-	function changeSelectLangShow(){
+
+	function changeSelectLangShow() {
 		$('#lang').val(lang.useLang)
 	}
+
+	function changeUiLangShow() {
+		var text = ''
+		$('.i18n').each(function () {
+			text = lang[lang.useLang][$(this).attr('i18n')]
+			if (text) {
+				$(this).html(text)
+			}
+		})
+	}
 	changeSelectLangShow()
+	changeUiLangShow()
 
 	let chartInit = function (n, mac) {
 		let _mac = mac || 'temp',
@@ -220,7 +232,7 @@ Zepto(function ($) {
 			device.real[_mac].lightChart.setOption({
 				title: {
 					text: lang[lang.useLang].Digitlight
-				},	
+				},
 				tooltip: tooltip,
 				xAxis: xAxis,
 				yAxis: {
