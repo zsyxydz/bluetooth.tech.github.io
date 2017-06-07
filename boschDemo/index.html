@@ -12,32 +12,29 @@
             clear: both;
             visibility: hidden
         }
-        
-        .clearfix {
-            *+height: 1%;
+
+        select {
+            height: 26px;
+            vertical-align: bottom;
         }
-        
+
+
         .graphic {
             margin-top: 20px;
         }
-        
+
         .graphic .chart .pic {
             width: 350px;
             height: 250px;
             float: left;
         }
-        
-        .chart h2,
-        .chart span {
-            /*float: left;*/
-        }
-        
+
         .chart .message h2,
         .chart .message span,
         .chart .message i {
             display: inline-block;
         }
-        
+
         .bgc {
             height: 90%;
             width: 90%;
@@ -45,15 +42,15 @@
             background: url('boschLogo.png') no-repeat center;
             opacity: .1;
         }
-        
+
         input {
             margin-right: 10px;
         }
-        
+
         #config label {
             margin-right: 10px;
         }
-        
+
         #hub_ip,
         #device_mac,
         #device_name {
@@ -62,14 +59,14 @@
             line-height: 20px;
             font-size: 18px;
         }
-        
+
         button {
             display: inline-block;
             font-size: 18px;
             line-height: 20px;
             margin-right: 10px;
         }
-        
+
         .chart .message .hidden,
         .hidden {
             display: none;
@@ -80,13 +77,20 @@
 <body>
     <div id="config">
         <label for="hub_ip">Hub IP</label><input id="hub_ip" placeholder="type the hub ip">
-        <label for="device_name" class="hidden">Device Name</label><input id="device_name" placeholder="type the device name" class="hidden">
-        <label for="frequency">Sampling Frequency</label><input id="frequency" type="range" min="1" max="50" step="1" value="10">
+        <label for="device_name" class="hidden">Device Name</label><input id="device_name" placeholder="type the device name"
+            class="hidden">
+        <label for="frequency" class="i18n" i18n='SamplingFrequency'>Sampling Frequency</label><input id="frequency" type="range"
+            min="1" max="50" step="1" value="10">
         <span id="frequencyData">10</span>HZ
-        <label for="frequency">Refresh Rate</label><input type="range" id="refresh" min="1" max="50" step="1" value="1">
+        <label for="frequency" class="i18n" i18n='RefreshRate'>Refresh Rate</label><input type="range" id="refresh" min="1"
+            max="50" step="1" value="1">
         <span id="refreshData">1</span>HZ
-        <button id="connect">connect</button>
-        <button id="disconnect">disconnectAll</button>
+        <button id="connect" class="i18n" i18n='connect'>connect</button>
+        <button id="disconnect" class="i18n" i18n='disconnectAll'>disconnectAll</button>
+        <select name="lang" id="lang">
+            <option value="en">English</option>
+            <option value="cn">中文</option>
+        </select>
     </div>
     <div class="graphic clearfix" id="graphic">
         <div class="bgc"></div>
@@ -97,7 +101,7 @@
                 <b>Mac:</b>
                 <span class="hidden">状态:</span>
                 <span class="status hidden">在线</span>
-                <i>收到数据包:</i>
+                <i class="i18n" i18n='receivepacket'>收到数据包:</i>
                 <span class="packNum">0</span>个
                 <time></time>
             </div>
@@ -115,6 +119,7 @@
     <script src='js/zepto.js'></script>
     <script src="js/echarts.js"></script>
     <script src='js/api.js'></script>
+    <script src="js/util_cookie.js"></script>
     <script src='js/index.js'></script>
 </body>
 

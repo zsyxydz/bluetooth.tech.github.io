@@ -1,5 +1,40 @@
 'use strict'
-Zepto(function($) {
+Zepto(function ($) {
+
+	var lang = {
+		en: {
+			'SamplingFrequency': 'Sampling Frequency',
+			'RefreshRate': 'Refresh Rate',
+			'connect': 'Connect',
+			'disconnectAll': 'DisconnectAll',
+			'receivepacket': 'Receive packet',
+			'Accelerometer': 'Accelerometer',
+			'Gyroscope': 'Gyroscope',
+			'Magneto': 'Magneto-meter',
+			'Humidity': 'Humidity',
+			'Pressure': 'Pressure',
+			'Temperature': 'Temperature',
+			'Acoustic': 'Acoustic',
+			'Digitlight': 'Digit light'
+
+		},
+		cn: {
+			'SamplingFrequency': '采样频率',
+			'RefreshRate': '页面刷新频率',
+			'connect': '连接',
+			'disconnectAll': '断开所有连接',
+			'receivepacket': '收到数据包:',
+			'Accelerometer': '加速度',
+			'Gyroscope': '陀螺仪',
+			'Magneto': '磁感',
+			'Humidity': '湿度',
+			'Pressure': '压力',
+			'Temperature': '温度',
+			'Acoustic': '声感',
+			'Digitlight': '光照'
+		},
+		useLang: getCookie('useLang')||'en'
+	}
 
 	let deviceDataInit = {
 			accxData: [],
@@ -41,20 +76,31 @@ Zepto(function($) {
 		macRouterMap: {},
 		newItem: false
 	}
-	$('#frequency').on('change', function() {
+
+	$('#lang').on('change', function () {
+		if (this.value === 'en') {
+			lang.useLang = 'en'
+		} else {
+			lang.useLang = 'cn'
+		}
+		setCookie('useLang',lang.useLang,100)
+		location.reload()
+	})
+
+	$('#frequency').on('change', function () {
 		$('#frequencyData').html(this.value)
 		let fre = Math.floor(1000 / this.value).toString(16)
 		device.fre1 = lsbToMsb(fre, 4)
-			// console.log(device.fre1)
+		// console.log(device.fre1)
 
 	})
-	$('#refresh').on('change', function() {
+	$('#refresh').on('change', function () {
 		$('#refreshData').html(this.value)
 		device.fre2 = Math.floor(1000 / this.value)
 		console.log(device.fre2)
 
 	})
-	let lsbToMsb = function(string, totalbyte) {
+	let lsbToMsb = function (string, totalbyte) {
 		let length = string.length,
 			_string = string,
 			n = 1,
@@ -76,7 +122,7 @@ Zepto(function($) {
 		return str
 	}
 
-	let chartInit = function(n, mac) {
+	let chartInit = function (n, mac) {
 		let _mac = mac || 'temp',
 			_n = n - 1
 		device.real[_mac].accChart = echarts.init($('.acc')[_n])
@@ -87,7 +133,7 @@ Zepto(function($) {
 		device.real[_mac].humChart = echarts.init($('.hum')[_n])
 		device.real[_mac].pressureChart = echarts.init($('.pressure')[_n])
 		device.real[_mac].magneticChart = echarts.init($('.magnetic')[_n]);
-		(function() {
+		(function () {
 			let tooltip = {
 				trigger: 'axis',
 				// formatter: function (params) {
@@ -114,7 +160,7 @@ Zepto(function($) {
 
 			device.real[_mac].accChart.setOption({
 				title: {
-					text: '加速度'
+					text: lang[lang.useLang].Accelerometer
 				},
 				tooltip: {
 					trigger: 'axis',
@@ -144,7 +190,7 @@ Zepto(function($) {
 
 			device.real[_mac].gyroChart.setOption({
 				title: {
-					text: '陀螺仪'
+					text: lang[lang.useLang].Gyroscope
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -169,8 +215,8 @@ Zepto(function($) {
 
 			device.real[_mac].lightChart.setOption({
 				title: {
-					text: '光照'
-				},
+					text: lang[lang.useLang].Digitlight
+				},	
 				tooltip: tooltip,
 				xAxis: xAxis,
 				yAxis: {
@@ -178,14 +224,14 @@ Zepto(function($) {
 				},
 				grid: grid,
 				series: [{
-					name: '光照',
+					name: lang[lang.useLang].Digitlight,
 					type: 'line',
 					sampling: 'average'
 				}]
 			});
 			device.real[_mac].noiseChart.setOption({
 				title: {
-					text: '声感'
+					text: lang[lang.useLang].Digitlight
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -194,14 +240,14 @@ Zepto(function($) {
 				},
 				grid: grid,
 				series: [{
-					name: '声感',
+					name: lang[lang.useLang].Acoustic,
 					type: 'line',
 					sampling: 'average'
 				}]
 			});
 			device.real[_mac].temperatureChart.setOption({
 				title: {
-					text: '温度'
+					text: lang[lang.useLang].Humidity
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -210,14 +256,14 @@ Zepto(function($) {
 				},
 				grid: grid,
 				series: [{
-					name: '温度',
+					name: lang[lang.useLang].Temperature,
 					type: 'line',
 					sampling: 'average'
 				}]
 			});
 			device.real[_mac].humChart.setOption({
 				title: {
-					text: '湿度'
+					text: lang[lang.useLang].Humidity
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -226,14 +272,14 @@ Zepto(function($) {
 				},
 				grid: grid,
 				series: [{
-					name: '湿度',
+					name: lang[lang.useLang].Humidity,
 					type: 'line',
 					sampling: 'average'
 				}]
 			});
 			device.real[_mac].pressureChart.setOption({
 				title: {
-					text: '压力'
+					text: lang[lang.useLang].Pressure
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -242,14 +288,14 @@ Zepto(function($) {
 				},
 				grid: grid,
 				series: [{
-					name: '压力',
+					name: lang[lang.useLang].Pressure,
 					type: 'line',
 					sampling: 'average'
 				}]
 			});
 			device.real[_mac].magneticChart.setOption({
 				title: {
-					text: '磁感'
+					text: lang[lang.useLang].Magneto
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
@@ -283,8 +329,8 @@ Zepto(function($) {
 
 
 
-	let createChart = function(n, name, mac) {
-		let chartHtmlStr = function() {
+	let createChart = function (n, name, mac) {
+		let chartHtmlStr = function () {
 			return `<div class="chart clearfix" data-mac='${mac}'>
             <div class="message">
                 <h2>XDK${n}&nbsp;</h2>
@@ -292,8 +338,8 @@ Zepto(function($) {
 				<b>Mac:${mac}</b>
                 <span class="hidden">状态:</span>
                 <span class="status hidden">在线</span>
-                <i>收到数据包:</i>
-                <span class="packNum">0</span>个
+                <i>${lang[lang.useLang].receivepacket}:</i>
+                <span class="packNum">0</span>
 				<time></time>
             </div>
             <div class="acc pic"></div>
@@ -339,14 +385,14 @@ Zepto(function($) {
 		hubIP = $('#hub_ip').val().trim()
 		devicesName = $('#device_name').val().trim()
 		if (!reg_ip.test(hubIP)) {
-			alert('hubIP输入错误')
+			alert('hubIP Error')
 			return false
 		}
 		localStorage.setItem('bosch', JSON.stringify([hubIP, devicesName]))
 		return true
 	}
 	let nameInit = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M']
-	let dataHandle = function(hub, data) {
+	let dataHandle = function (hub, data) {
 		if (data !== 'keep-alive') {
 			let _data = JSON.parse(data)
 			dd = dataParse(_data.value, _data.id)
@@ -362,7 +408,7 @@ Zepto(function($) {
 	 * args  {Array} [api.hub,event.data]
 	 */
 
-	let scanHandle = function(hub, args) {
+	let scanHandle = function (hub, args) {
 		if (args !== 'keep-alive') {
 			let data = JSON.parse(args),
 				mac = data.bdaddrs[0].bdaddr,
@@ -398,7 +444,7 @@ Zepto(function($) {
 					api.conn({
 						node: i,
 						type: device.real[i].type,
-						success: function(hub, mac, data) {
+						success: function (hub, mac, data) {
 							//防止连接多次 多次返回连接成功  多次执行本函数
 							if (device.real[mac].connect)
 								return
@@ -420,7 +466,7 @@ Zepto(function($) {
 								counts: $('.packNum')[connectNum - 1]
 							}
 							writeSpecialValue(mac)
-								// debugger
+							// debugger
 						}
 					})
 				}
@@ -428,7 +474,7 @@ Zepto(function($) {
 		}
 	}
 
-	let connectedDeviceCount = function(device) {
+	let connectedDeviceCount = function (device) {
 		let n = 0;
 		for (let i in device.real) {
 			if (device.real[i].connect && !device.real[i].virtual) {
@@ -441,7 +487,7 @@ Zepto(function($) {
 
 
 
-	$('#disconnect').on('click', function() {
+	$('#disconnect').on('click', function () {
 		if (!getIpMac()) {
 			return
 		}
@@ -453,25 +499,25 @@ Zepto(function($) {
 			.devices({
 				server: hubIP,
 				hub: '',
-				success: function(data) {
-					data.nodes.forEach(item=>{
+				success: function (data) {
+					data.nodes.forEach(item => {
 						item.id
 						api.disconn({
-							node:item.id,
-							success:function(){
+							node: item.id,
+							success: function () {
 								location.reload()
 							}
 						})
 					})
 				}
 			})
-			// .disconn({
-			// 	node: devicesMac
-			// })
+		// .disconn({
+		// 	node: devicesMac
+		// })
 	})
 
 
-	$('#connect').on('click', function() {
+	$('#connect').on('click', function () {
 		//此接口用于连接设备
 		if (!getIpMac()) {
 			return
@@ -510,11 +556,11 @@ Zepto(function($) {
 
 		if (device.real[mac].lastnotify === 0) {
 			let time = 0;
-			setInterval(function() {
+			setInterval(function () {
 				time++
 				debugger
 				$(`.chart[data-mac='${mac}']`).find('time')[0].innerHTML = `${time}s  ${(device.real[mac].mes.mesCounts/time).toFixed(2)}个/s`
-					// $(`.chart[data-mac='${mac}']`).find('time')[0].innerHTML = time + 's'
+				// $(`.chart[data-mac='${mac}']`).find('time')[0].innerHTML = time + 's'
 			}, 1000)
 		}
 		if (new Date() - device.real[mac].lastnotify[value.type] < device.fre2) {
@@ -713,13 +759,13 @@ Zepto(function($) {
 	}
 
 
-	let writeSpecialValue = function(mac) {
+	let writeSpecialValue = function (mac) {
 		// device[arg[1]].connect=true
 		api.write({
 			node: mac,
 			handle: 59,
 			value: device.fre1,
-			success: function() {
+			success: function () {
 				api.write({
 					node: mac,
 					handle: 57,
@@ -740,8 +786,8 @@ Zepto(function($) {
 
 	};
 
-	let dataParse = function(str, id) {
-		let reverseByte = function(str) {
+	let dataParse = function (str, id) {
+		let reverseByte = function (str) {
 			let temp = '',
 				i = str.length
 			for (i; i >= 2; i -= 2) {
@@ -749,11 +795,11 @@ Zepto(function($) {
 			}
 			return temp
 		}
-		let splitString = function(str, byte1, byte2) {
+		let splitString = function (str, byte1, byte2) {
 			function sum(arr, index) {
 				let _arr = arr.slice(0, index)
 				if (_arr.length !== 0) {
-					return _arr.reduce(function(prev, cur, index, arr) {
+					return _arr.reduce(function (prev, cur, index, arr) {
 						return prev + cur
 					})
 				}
@@ -763,7 +809,7 @@ Zepto(function($) {
 			let temp = [],
 				byteArr = Array.prototype.slice.call(arguments, 1),
 				length = byteArr.length
-			byteArr = byteArr.map(function(item) {
+			byteArr = byteArr.map(function (item) {
 				return item * 2
 			})
 			for (let i = 0; i < length; i++) {
@@ -794,7 +840,7 @@ Zepto(function($) {
 
 		if (temp === '01') {
 			lowData1.push(str.substring(2))
-			lowData1.forEach(function(item, index) {
+			lowData1.forEach(function (item, index) {
 				let temp = splitString(item, 4, 1, 4, 4, 4, 1, 1)
 				light.push(temp[0] / 1000)
 				noise.push(temp[1])
@@ -818,7 +864,7 @@ Zepto(function($) {
 		}
 		if (temp === '02') {
 			lowData2.push(str.substring(2))
-			lowData2.forEach(function(item, index) {
+			lowData2.forEach(function (item, index) {
 				let temp = splitString(item, 2, 2, 2, 2, 1)
 				magnetometer.push({
 					x: temp[0],
@@ -827,11 +873,11 @@ Zepto(function($) {
 				})
 				magnetometerR.push(temp[3])
 				ledStatus.push(temp[4])
-					// console.log('Ma', {
-					// 	x: temp[0],
-					// 	y: temp[1],
-					// 	z: temp[2]
-					// })
+				// console.log('Ma', {
+				// 	x: temp[0],
+				// 	y: temp[1],
+				// 	z: temp[2]
+				// })
 			})
 
 			return {
@@ -844,17 +890,17 @@ Zepto(function($) {
 		}
 
 		hiData.push(str)
-		hiData.forEach(function(item, index) {
+		hiData.forEach(function (item, index) {
 			acc.push({
-					x: parseInt(reverseByte(item.substr(0, 4)), 16) / 1000,
-					y: parseInt(reverseByte(item.substr(4, 4)), 16) / 1000,
-					z: parseInt(reverseByte(item.substr(8, 4)), 16) / 1000
-				})
-				// console.log('acc', {
-				// 	x: parseInt(reverseByte(item.substr(0, 4)), 16) / 1000,
-				// 	y: parseInt(reverseByte(item.substr(4, 4)), 16) / 1000,
-				// 	z: parseInt(reverseByte(item.substr(8, 4)), 16) / 1000
-				// });
+				x: parseInt(reverseByte(item.substr(0, 4)), 16) / 1000,
+				y: parseInt(reverseByte(item.substr(4, 4)), 16) / 1000,
+				z: parseInt(reverseByte(item.substr(8, 4)), 16) / 1000
+			})
+			// console.log('acc', {
+			// 	x: parseInt(reverseByte(item.substr(0, 4)), 16) / 1000,
+			// 	y: parseInt(reverseByte(item.substr(4, 4)), 16) / 1000,
+			// 	z: parseInt(reverseByte(item.substr(8, 4)), 16) / 1000
+			// });
 			gyro.push({
 				x: parseInt(reverseByte(item.substr(12, 4)), 16) / 1000,
 				y: parseInt(reverseByte(item.substr(16, 4)), 16) / 1000,
@@ -891,7 +937,7 @@ Zepto(function($) {
 		/**
 		 * @param {number} sensorNum 虚拟MAC的个数
 		 */
-		let creatSensorNumMac = function(sensorNum) {
+		let creatSensorNumMac = function (sensorNum) {
 				let macArr = [],
 					temp, tempArr
 				for (let i = 0; i < sensorNum * 6; i++) {
@@ -913,7 +959,7 @@ Zepto(function($) {
 		if (device.virtualMacArr === false) {
 			device.virtualMacArr = []
 			device.virtualMacArr = creatSensorNumMac(sensorNum)
-			timer = setInterval(function() {
+			timer = setInterval(function () {
 				if (device.virtualMacArr.length !== 0) {
 					virtualMac = device.virtualMacArr.shift()
 					device.real[virtualMac] = {
