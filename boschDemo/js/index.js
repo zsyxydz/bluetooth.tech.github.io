@@ -121,6 +121,10 @@ Zepto(function ($) {
 		}
 		return str
 	}
+	function changeSelectLangShow(){
+		$('#lang').val(lang.useLang)
+	}
+	changeSelectLangShow()
 
 	let chartInit = function (n, mac) {
 		let _mac = mac || 'temp',
