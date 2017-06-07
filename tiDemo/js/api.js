@@ -36,7 +36,7 @@ function disconnect(host,mac,node,token){
 function oAuth(host,userName,password){
 	$.ajax({
 		 type: 'POST',
-		 url: "http:"+host+"/api/oauth2/token",
+		 url: "http://"+host+"/api/oauth2/token",
 		 data: { "grant_type": "client_credentials"}, //data: {key:value}, 
 		 //添加额外的请求头
 		 headers : {
