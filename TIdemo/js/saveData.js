@@ -1,4 +1,3 @@
-
    $("input").on('keyup',function(){
     //alert($(this).val())
     mystorage.set($(this).attr('id'),$(this).val());
