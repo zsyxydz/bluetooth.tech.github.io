@@ -5,6 +5,7 @@ function sensorTmp007Convert(tmpData){
 	let rawObjTemp = parseInt(tmpData.slice(6,8) + tmpData.slice(4,6),16);
 	let anmtemp = (rawAmbTemp >> 2) * SCALE_LSB;
 	let objtemp = (rawObjTemp >> 2) * SCALE_LSB;
+	return anmtemp;
 }
 //湿度传感器
 function sensorHdc1000Convert (hdcData){
@@ -14,6 +15,7 @@ function sensorHdc1000Convert (hdcData){
 	let temp = rawTemp / 65536 * 165 - 40 ;
 	//  - 计算相对湿度[％RH] 
 	let hum = rawHum / 65536 * 100;
+	return hum;
 }
 //气压传感器
 function calcBmp280(bmpData){
@@ -21,7 +23,8 @@ function calcBmp280(bmpData){
 	let rawPa = parseInt(bmpData.slice(10,12)+bmpData.slice(8,10)+bmpData.slice(6,8),16);
 
 	let temp = rawTemp / 100;
-	let pa = rawHum / 100;
+	let pa = rawPa / 100;
+	return pa;
 }
 //光学传感器
 function SensorOpt3001_convert(optData){
