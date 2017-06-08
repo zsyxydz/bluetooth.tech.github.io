@@ -11,4 +11,4 @@
         $("#apmac").val(mystorage.get("apmac") || "");
         $("#node").val(mystorage.get("node") || "");
     }
-    loadData()
+    loadData() 
