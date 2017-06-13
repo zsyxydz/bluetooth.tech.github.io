@@ -247,7 +247,7 @@ Zepto(function ($) {
 			});
 			device.real[_mac].noiseChart.setOption({
 				title: {
-					text: lang[lang.useLang].Digitlight
+					text: lang[lang.useLang].Acoustic
 				},
 				tooltip: tooltip,
 				xAxis: xAxis,
