@@ -1,4 +1,4 @@
-//红外温度传感器
+ //红外温度传感器
 function sensorTmp007Convert(tmpData){
 	let SCALE_LSB = 0.03125 ;
 	let rawAmbTemp = parseInt(tmpData.slice(2,4) + tmpData.slice(0,2),16);
@@ -43,9 +43,9 @@ function gyro(data){
 	let gyroXdata = parseInt(data.slice(2,4) + data.slice(0,2),16);
 	let gyroYdata = parseInt(data.slice(6,8) + data.slice(4,6),16);
 	let gyroZdata = parseInt(data.slice(10,12) + data.slice(8,10),16);
-	let gyroX = (gyroXdata * 1) / (65536 / 500);
-	let gyroY = (gyroYdata * 1) / (65536 / 500);
-	let gyroZ = (gyroZdata * 1) / (65536 / 500);
+	let gyroX = parseFloat((gyroXdata * 1) / (65536 / 500)).toFixed(1);
+	let gyroY = parseFloat((gyroYdata * 1) / (65536 / 500)).toFixed(1);
+	let gyroZ = parseFloat((gyroZdata * 1) / (65536 / 500)).toFixed(1);
 	gyroX = gyroX > 255?255 - gyroX:gyroX;
 	gyroY = gyroY > 255?255 - gyroY:gyroY;
 	gyroZ = gyroZ > 255?255 - gyroZ:gyroZ;
@@ -58,9 +58,9 @@ function acc(data,range){
 	let accXdata = parseInt(data.slice(14,16) + data.slice(12,14),16);
 	let accYdata = parseInt(data.slice(18,20) + data.slice(16,18),16);
 	let accZdata = parseInt(data.slice(22,24) + data.slice(20,22),16);
-	let accX = (accXdata * 1) / (32760 / range);
-	let accY = (accYdata * 1) / (32760 / range);
-	let accZ = (accZdata * 1) / (32760 / range);
+	let accX = parseFloat((accXdata * 1) / (32760 / range)).toFixed(1);
+	let accY = parseFloat((accYdata * 1) / (32760 / range)).toFixed(1);
+	let accZ = parseFloat((accZdata * 1) / (32760 / range)).toFixed(1);
 	accX = accX > range?range-accX:accX;
 	accY = accY > range?range-accY:accY;
 	accZ = accZ > range?range-accZ:accZ;

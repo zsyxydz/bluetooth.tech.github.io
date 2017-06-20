@@ -4,15 +4,21 @@
  *      guangyan@cassianetworks.com
  *      df095efe1f027001290994ef52ff76ff65fe
  *      df-09-5e-fe-1f-02-70-01-29-09-94-ef-52-ff-76-ff-65-fe
+ *      
+ *      Gyro  0-5字节
  *      GyroX : 09df
  *      GyroY : fe5e
  *      GyroZ : 021f
+ *
+ *      Acc  6-11字节
  *      AccX : 0170
  *      AccY : 0929
  *      AccZ : ef94
- *      MagX : ff52
+ *
+ *      Mag 7-12字节
+ *      MagX : 2901
  *      MagY : ff76
- *      MagZ : fe65
+ *      MagZ : fe65  
  *      
  */
 $(document).ready(function(){
@@ -28,10 +34,11 @@ var refArr = {
 var connectNum = 0;//连接device的数量
 //断开连接
 $(".disconbtn").on('click',function(){
-    $.each( nodeArr, function( index, val ) {
+    $.each( device.real, function( index, val ) {
         console.log(index,val);
-        disconnect(host,APmac,val,token);
+        disconnect(host,APmac,index,token);
     });
+
     location.reload();
     
   /*  oAuth("192.168.199.237","tester","10b83f9a2e823c47")*/
@@ -46,11 +53,15 @@ $(".conbtn").on('click',function(){
     username = $("#username").val().trim();
     password = $("#password").val().trim();
     APmac = $("#apmac").val().trim();
+    if(host == "" || username == "" || password == "" || APmac == ""){
+        alert("The input can not be empty");
+        return;
+    }
     oAuth(host,username,password).then(function(value){// 获取token
         console.log(value)
         token = value;
         if(token === "err" || !token){
-            console.log("获取token失败，请检查填写是否正确");
+            alert("To get token failed, check AC address and Developer");
             return 
         }
         else{
@@ -91,7 +102,9 @@ function scan2conn(scanData){
      //   console.log(scanData)
         let data = JSON.parse(scanData);
         let mac = data.bdaddrs[0].bdaddr;
-        if($.inArray(mac,nodeArr) != -1){
+        let deviceName = data.name;
+        //if($.inArray(mac,nodeArr) != -1){
+        if(deviceName == "CC2650 SensorTag"){
             if (!device.real[mac]) {
                 device.newItem = true
                 device.real[mac] = {

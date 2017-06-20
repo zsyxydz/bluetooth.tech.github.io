@@ -1,12 +1,17 @@
-var es;
+
 function scan(host,mac,token,cb){
-	let url = "http://"+host+"/api/gap/nodes/?mac="+mac+"&event=1&access_token="+token;
-	es = new EventSource(url);
+	let url = "http://"+host+"/api/gap/nodes/?mac="+mac+"&event=1&active=1&access_token="+token;
+	let es = new EventSource(url);
 	es.onmessage=function(event){
-		if(event.data !== ":keep-alive"){
+		/*let data = JSON.parse(event.data);
+		console.log(data.name)
+*/		if(event.data !== ":keep-alive"){
 			cb(event.data);
 		}
 	}
+	/*es.onerror = function(){
+		alert("Check that the network and APMac are correct");
+	}*/
 }
 function connect(host,mac,node,token,cb){
 	let url = "http://"+host+"/api/gap/nodes/"+node+"/connection?mac="+mac;
@@ -64,13 +69,17 @@ function notification(host,mac,token,cb){
 			cb(event.data);
 		}
 	}
+	es.onerror = function(e){
+		//alert("Check that the network and APMac are correct");
+		console.log("notification",e)
+	}
 }
 function disconnect(host,mac,node,token){
 	let url = "http://"+host+"/api/gap/nodes/"+node+"/connection?mac="+mac;
 	$.ajax({
 		url:url,
 		type: 'DELETE',
-		dataType:'text',
+		 dataType:'text',
 				headers : {
 		 			"Authorization":"Bearer " + token,
 			  	},
