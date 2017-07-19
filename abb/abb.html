@@ -1,0 +1,92 @@
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title></title>
+	<script type="text/javascript" src="http://www.zeptojs.cn/zepto.min.js"></script>
+</head>
+<body>
+<style type="text/css">
+	* { font-size: 24px; font-family: monospace; font-weight: bold } 
+	.top{
+		height: 50px;
+		width: 1000px;
+		border: 1px solid #333;
+	}
+	.hubIp,.devMac{
+		float: left;
+		margin: 0 10px 0 10px;
+	}
+	.devMac{
+		width: 200px;
+	}
+	.clearfix::after{
+		display: block;
+		height:0;
+		content: "";
+		clear:both;
+	}
+	ul li{
+		list-style: none;
+	}
+	.content{
+		width: 1000px;
+		padding: 10px;
+		border: 1px solid #333;
+		/*background-color: red;*/
+	}
+	.data_left{
+		width: 50px;
+		height: 200px;
+	}
+	.data_left,.data_right{
+		float: left;
+	}
+	.data_right .Temperature span{
+		color: #696969;
+		margin-left:10px;
+	}
+	.BatteryVoltage span{
+		color: #00CD66;
+		margin-left:10px;
+	}
+	.Accelerometer span{
+		color: #FF4500;
+		margin-left:10px;
+	}
+	.Magnetometer span{
+		color: #FF4040;
+		margin-left:10px;
+	}
+	.Microphone span{
+		color: #FF1493;
+		margin-left:10px;
+	}
+</style>
+	<div class="top clearfix">
+		<input type="text" placeholder="AP's MAC" class="hubIp">
+		<input type="text" placeholder="Device MAC" class="devMac" value="50:31:ad:00:0b:1a">
+		<button class="btn">Start</button>
+	</div>
+	<div class="content">
+		<ul class="data">
+			<li class="clearfix">
+				<div class="data_left">
+					<span>mac1</span>
+					<span></span>
+				</div>
+				<div class="data_right">
+					<ul>
+						<li class="Temperature"><span>Temperature:</span><span></span></li>
+						<li class="BatteryVoltage"><span>Battery Voltage:</span><span></span></li>
+						<li class="Accelerometer"><span>Accelerometer:</span><span></span></li>
+						<li class="Magnetometer"><span>Magnetometer:</span><span></span></li>
+						<li class="Microphone"><span>Microphone:</span><span></span></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<script type="text/javascript" src="api.js"></script>
+	<script type="text/javascript" src="abb.js"></script>
+</body>
+</html>
