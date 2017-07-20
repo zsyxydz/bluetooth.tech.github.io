@@ -2,7 +2,7 @@ function run(){
     var flag;
     api
         .use({
-            server: 'http://api2.cassianetworks.com',
+            server: 'http://api1.cassianetworks.com',
             hub: $('.hubIp').val() || 'CC:1B:E0:E0:22:60',
             developer: 'tester',
             key: '10b83f9a2e823c47'
