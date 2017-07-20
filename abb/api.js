@@ -23,15 +23,19 @@
     api.use = function(o) {
         o = o || {}
         let reg_ip = /(\d+)\.(\d+)\.(\d+)\.(\d+)/,
-            reg_http = /http\:\/\/(.+)/;
-        // local
+            reg_http = /http\:\/\/(.+)/,
+            reg_domain = /(.+)\.(.+)/;
+        /*
+        // local, use ip
         if (o.server && typeof o.server == 'string' && reg_ip.test(o.server)) {
             api.server = 'http://' + o.server
             api.local = true
-                // cloud
-        } else if (o.server && typeof o.server == 'string' && reg_ip.test(o.server)) {
-            // ... hehe, use url directly
-            // cloud (use us/cn/auto)
+        // cloud, add http prefix
+        } else if (o.server && typeof o.server == 'string' && reg_domain.test(o.server)) {
+            api.server = 'http://' + o.server
+        // cloud, use url
+        } else if (o.server && typeof o.server == 'string') {
+        // cloud (use us/cn/auto)
         } else {
             api.server = 'http://' + ({
                 'us': 'api1',
@@ -40,6 +44,8 @@
                 'auto': 'api'
             }[o.server] || 'api') + '.cassianetworks.com'
         }
+        */
+        api.server = o.server
         api.developer = o.developer || 'tester'
         api.key = o.key || '10b83f9a2e823c47'
         api.base64_dev_key = 'Basic ' + btoa(o.developer + ':' + o.key)
@@ -232,6 +238,36 @@
             __es.close(api.notify)
         }
         return api
+    }
+
+    api.when = function(){
+        var a = [], pm = [], then = function(f, d){
+            // var f = a[i][0], d = a[i][1] || {}
+            f = f || ''
+            d = d || {}
+            pm.push(function(resolve){
+                d.success = function(){
+                    console.log(f, d)
+                    setTimeout(function(){
+                        var u = pm.shift()
+                        u && u(resolve)
+                    }, 10)
+                }
+                api[f](d)
+            })
+        };
+        var my_co = {
+            discover: function(d){ a.push(['discover', d]); return my_co },
+            write: function(d){ a.push(['write', d]); return my_co },
+            read: function(d){ a.push(['read', d]); return my_co },
+            done: function(){
+                for (var i in a){
+                    then(a[i][0], a[i][1])
+                }
+                pm.length && pm.shift()()
+            }
+        }
+        return my_co
     }
 
     G.api = api
